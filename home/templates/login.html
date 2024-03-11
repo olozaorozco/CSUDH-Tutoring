@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<form method="post">{% csrf_token%}
+    {{form.as_p}}
+    <input type="submit" class="btn btn-secondary"/>
+    <a href="{% url 'home' %}" class="btn btn-primary">Forgot my Password/Username</a>
+
+</form>
+
+<a href="{% url 'home' %}" class="btn btn-primary alert-danger">Cancel</a>
+
+
+{% endblock %}

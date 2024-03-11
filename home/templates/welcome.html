@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1>Welcome to CSUDH Tutoring!</h1>
+    <p>Today is {{today}}</p>
+    <a href="{% url 'home' %}" class="btn btn-primary">Look For Tutors Here</a>
+
+
+{% endblock %}

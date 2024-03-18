@@ -3,8 +3,12 @@
 {% block content %}
 
     <h1>Welcome to CSUDH Tutoring!</h1>
-    <p>Today is {{today}}</p>
-    <a href="{% url 'home' %}" class="btn btn-primary">Look For Tutors Here</a>
+    <!-- <p>Today is {{today}}</p> -->
 
+    {% if user.is_authenticated %}
+    <a href="{% url 'dashboard' %}" class="btn btn-primary" style="background-color: #860038;">Look For Tutors Here</a>
+    {% else %}
+    <a href="{% url 'login' %}" class="btn btn-primary" style="background-color: #860038;">Look For Tutors Here</a>
+    {% endif %}
 
 {% endblock %}

@@ -27,3 +27,6 @@ class LoginInterfaceView(LoginView):
 class HomeView(TemplateView):
     template_name = 'welcome.html'
     extra_context = {'today': datetime.today()}
+
+class DashboardView(TemplateView):
+    template_name = 'dashboard.html'

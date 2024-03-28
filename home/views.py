@@ -15,7 +15,7 @@ from django.urls import reverse_lazy
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
-    
+    serializer_class = UserSerializer
 class TutoringFormViewSet(viewsets.ModelViewSet):
     queryset = TutoringForm.objects.all()
     serializer_class = TutoringFormSerializer

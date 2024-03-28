@@ -7,15 +7,26 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import redirect
-from .models import CustomUser
+from .models import CustomUser, TutoringSession, TutoringForm, Course
 from rest_framework import viewsets
-from .serializers import UserSerializer
+from .serializers import UserSerializer, TutoringFormSerializer, TutoringSessionSerializer, CourseSerializer
 from .forms import CustomUserCreationForm
 from django.urls import reverse_lazy
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
-    serializer_class = UserSerializer
+    
+class TutoringFormViewSet(viewsets.ModelViewSet):
+    queryset = TutoringForm.objects.all()
+    serializer_class = TutoringFormSerializer
+
+class TutoringSessionViewSet(viewsets.ModelViewSet):
+    queryset = TutoringSession.objects.all()
+    serializer_class = TutoringSessionSerializer
+
+class CourseViewSet(viewsets.ModelViewSet):
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
 
 class SignupView(CreateView):
     form_class = CustomUserCreationForm

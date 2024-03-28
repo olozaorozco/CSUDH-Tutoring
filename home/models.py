@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from datetime import date
+from django.core.exceptions import ValidationError
 
 class CustomUser(AbstractUser):
     willTutor = models.BooleanField(default=False)
@@ -13,6 +14,7 @@ class Course(models.Model):
     CourseNumber = models.CharField(max_length=50)
     Title = models.CharField(max_length=50)
     Description = models.CharField(max_length = 200)
+
 
     def __str__(self):
         return self.CourseNumber
@@ -37,6 +39,10 @@ class TutoringSession(models.Model):
     date_created =models.DateTimeField(auto_now_add=True)
     Tutoring_Date = models.DateField(default=date.today)
     Location = models.IntegerField(choices=locations)
+
+    def clean(self):
+        if self.Student == self.TutoringForm.Tutor:
+            raise ValidationError("Student cannot be the same as the Tutor")
 
     def __str__(self):
         return (self.TutoringForm.Tutor.first_name +', ' + self.Student.first_name +', ' + str(self.Tutoring_Date))

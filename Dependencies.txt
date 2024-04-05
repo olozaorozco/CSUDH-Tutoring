@@ -1,0 +1,9 @@
+In a venv for django:
+    pip install django djangorestframework django-cors-headers
+
+
+Install node.js then run these within forntend directory:
+
+npm install -g vite
+npm install vite@latest
+npm install axios

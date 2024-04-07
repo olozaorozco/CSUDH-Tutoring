@@ -1,28 +1,18 @@
-import FormDisplay from "./components/FormDisplay";
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/home";
+import Test from "./pages/test";
 
-function Test() {
-  const [data, setData] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/tutoringforms/")
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-        setError(error);
-      });
-  }, []);
-
+function App() {
   return (
     <div>
-      {data.length > 0 && data.map((form) => <FormDisplay Form={form} />)}
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/test" element={<Test />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
 
-export default Test;
+export default App;

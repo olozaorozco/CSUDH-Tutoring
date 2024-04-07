@@ -4,7 +4,7 @@ from .models import CustomUser, TutoringForm, TutoringSession, Course
 class UserSerializer(ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'willTutor']
+        fields = ['id', 'username', 'first_name', 'last_name']
 
 
 class CourseSerializer(ModelSerializer):

@@ -1,8 +1,8 @@
-import ListGroup from "./components/ListGroup";
-import { useState, useEffect } from "react";
+import FormDisplay from "./components/FormDisplay";
 import axios from "axios";
-function App() {
-  const [alertVisible, setAlertVisibility] = useState(false);
+import { useState, useEffect } from "react";
+
+function Test() {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
 
@@ -20,25 +20,9 @@ function App() {
 
   return (
     <div>
-      {data.length > 0 && (
-        <ListGroup
-          items={data.map((item, index) => (
-            <div key={item.id}>
-              <h1>{item.Tutor.first_name}</h1>
-              <ul key={`${item.id}-${index}`}>
-                {item.courses.map((course, index) => (
-                  <li key={`${item.id}-${course.id}`}>{course.Title}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-          heading="Tutors"
-        />
-      )}
-
-      {error && <p>Error fetching data: {error.message}</p>}
+      {data.length > 0 && data.map((form) => <FormDisplay Form={form} />)}
     </div>
   );
 }
 
-export default App;
+export default Test;

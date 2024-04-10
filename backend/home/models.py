@@ -20,7 +20,7 @@ class Course(models.Model):
         return self.CourseNumber
     
 class TutoringForm(models.Model):
-    Tutor = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    Tutor = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name="TutoringForm")
     courses = models.ManyToManyField(Course)
     Description = models.CharField(max_length = 200, default= '')
 

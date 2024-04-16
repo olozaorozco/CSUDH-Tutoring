@@ -4,86 +4,94 @@ from .serializers import UserSerializer, TutoringFormSerializer, TutoringSession
 from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
+class SingleUserView(generics.RetrieveAPIView):
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
 
-class FormCreationView(APIView):
-    def post(self, request):
-        Tutor = request.data.get('Tutor')
-        Description = request.data.get('Description')
-        courses = request.data.get('courses')
-            
-            # Check if the required fields are present
-        if not (Tutor and Description and courses):
-            return JsonResponse({'error': 'Missing required fields'}, status=400)
-            
-            # Check if the username or email is already taken
-        if TutoringForm.objects.filter(Tutor=Tutor).exists():
-            return JsonResponse({'error': 'Form Already made'}, status=400)
-            
-            # Create the user
-        try:
-            user = TutoringForm.objects.create(Tutor=Tutor, Description=Description)  
-            if isinstance(courses, list):
-                for course_id in courses:
-                    TutoringForm.courses.add(course_id)
-            else:
-                TutoringForm.courses.add(courses)  
-            
-            return JsonResponse({'success': 'Form created successfully', 'form_id': TutoringForm.pk})
+    def get_object(self):
+        # The request.user object contains the authenticated user
+        return self.request.user
 
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)
+class CreateUserView(generics.CreateAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [AllowAny]
 
-class LoginAPIView(APIView):
-    def post(self, request):
-        username = request.data.get('username')
-        password = request.data.get('password')
-        
-        user = authenticate(username=username, password=password)
-        
-        if user:
-            token, _ = Token.objects.get_or_create(user=user)
-            return Response({'token': token.key}, status=status.HTTP_200_OK)
+class FormCreationView(generics.ListCreateAPIView):
+    serializer_class = TutoringFormSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return TutoringForm.objects.filter(Tutor = user)
+    
+    def perform_create(self, serializer):
+        if serializer.is_valid():
+            serializer.save(Tutor=self.request.user)
         else:
-            return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+            print(serializer.errors)
 
-class UserRegistrationView(APIView):
-    def post(self, request):
-        username = request.data.get('username')
-        email = request.data.get('email')
-        password = request.data.get('password')
-        first_name = request.data.get('first_name')
-        last_name = request.data.get('last_name')
-        willTutor = request.data.get('willTutor')
+
+
+# class FormCreationView(APIView):
+#     def post(self, request):
+#         Tutor_id = request.data.get('Tutor')
+#         Description = request.data.get('Description')
+#         courses = request.data.get('courses')
+
             
-            # Check if the required fields are present
-        if not (username and email and password):
-            return JsonResponse({'error': 'Missing required fields'}, status=400)
+#             # Check if the required fields are present
+#         if not (Tutor_id and Description and courses):
+#             return JsonResponse({'error': 'Missing required fields'}, status=400)
+
+#         tutor = CustomUser.objects.get(id=Tutor_id)
+
+#             # Check if the username or email is already taken
+#         if TutoringForm.objects.filter(Tutor=tutor).exists():
+#             return JsonResponse({'error': 'Form Already made'}, status=400)
             
-            # Check if the username or email is already taken
-        if CustomUser.objects.filter(username=username).exists() or CustomUser.objects.filter(email=email).exists():
-            return JsonResponse({'error': 'Username or email already exists'}, status=400)
-            
-            # Create the user
-        user = CustomUser.objects.create_user(username=username, first_name=first_name, last_name=last_name, email=email, password=password, willTutor = willTutor)     
-        return JsonResponse({'message': 'User created successfully'})
+#             # Create the user
+#         try:
+#             form = TutoringForm.objects.create(Tutor=tutor, Description=Description)  
+#             for course_id in courses:
+#                 try:
+#                     course = Course.objects.get(id=course_id)
+#                     form.courses.add(course)
+#                 except Course.DoesNotExist:
+#                     return JsonResponse({'error': f'Course with ID {course_id} not found'}, status=400)
+                
+
+#             return JsonResponse({'success': 'Form created successfully'})
+
+#         except Exception as e:
+#             return JsonResponse({'error': str(e)}, status=500)
+
+
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
+    permission_classes = [AllowAny]
+
 
 class TutoringFormViewSet(viewsets.ModelViewSet):
     queryset = TutoringForm.objects.all()
     serializer_class = TutoringFormSerializer
+    permission_classes = [AllowAny]
+
 
 class TutoringSessionViewSet(viewsets.ModelViewSet):
     queryset = TutoringSession.objects.all()
     serializer_class = TutoringSessionSerializer
+    permission_classes = [AllowAny]
 
 class CourseViewSet(viewsets.ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+    permission_classes = [AllowAny]
 
 

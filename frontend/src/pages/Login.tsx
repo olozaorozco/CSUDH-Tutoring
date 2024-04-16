@@ -1,6 +1,8 @@
 import React, { useState, Fragment } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import api from "../api";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -17,15 +19,12 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:8000/login/",
-        formData
-      );
+      const response = await api.post("/token/", formData);
       // Save token to localStorage and redirect
 
       console.log("it worked");
-      localStorage.setItem("token", response.data.token);
-      console.log(localStorage.getItem("token"));
+      localStorage.setItem(ACCESS_TOKEN, response.data.access);
+      localStorage.setItem(REFRESH_TOKEN, response.data.refresh);
       navigate("/");
       // Redirect or update authentication state
     } catch (error) {

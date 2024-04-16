@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import CourseDisplay from "../components/CourseDisplay";
+import api from "../api";
+import { useUser } from "../components/UserContext";
 
 function FormCreation() {
   const [data, setData] = useState([]);
@@ -11,11 +13,8 @@ function FormCreation() {
 
   const handleClick = () => {};
 
-  const [formData, setFormData] = useState({
-    Tutor: 14,
-    courses: [],
-    description: "",
-  });
+  const { user} = useUser();
+
   //const history = useHistory();
   useEffect(() => {
     axios
@@ -28,6 +27,18 @@ function FormCreation() {
         setError(error);
       });
   }, []);
+  console.log(user);
+
+  const [formData, setFormData] = useState({
+    Tutor: user ? user.id : null,
+    courses: [],
+    Description: "",
+  });
+
+  if (!user) {
+    return <div>Loading...</div>;
+    // Display a loading state while waiting for user data
+  }
 
   const handleChange = (e) => {
     setFormData({
@@ -55,13 +66,7 @@ function FormCreation() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8000/form-creation/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await api.post("/form/creation/", formData);
 
       if (!response.ok) {
         throw new Error("Form Creation failed");
@@ -117,8 +122,8 @@ function FormCreation() {
             ))}
         <input
           type="text"
-          name="description"
-          value={formData.description}
+          name="Description"
+          value={formData.Description}
           onChange={handleChange}
           placeholder="Description"
         />
@@ -127,6 +132,11 @@ function FormCreation() {
       <Link to="/">
         <button>Back</button>
       </Link>
+      <ul>
+        {formData.courses.map((course, index) => (
+          <li key={index}>{course}</li>
+        ))}
+      </ul>
     </>
   );
 }

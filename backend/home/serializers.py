@@ -1,5 +1,6 @@
-from rest_framework.serializers import ModelSerializer, SerializerMethodField 
+from rest_framework.serializers import ModelSerializer, SerializerMethodField
 from .models import CustomUser, TutoringForm, TutoringSession, Course
+from rest_framework import serializers
 
 
 class CourseSerializer(ModelSerializer):
@@ -8,7 +9,7 @@ class CourseSerializer(ModelSerializer):
         fields = ['id', 'CourseNumber', 'Title', 'Description']
 
 class TutoringFormSerializerNoUser(ModelSerializer):
-    courses = CourseSerializer(many=True)
+    courses = CourseSerializer(many=True, required=False)
 
     class Meta:
         model = TutoringForm
@@ -18,7 +19,7 @@ class TutoringFormSerializerNoUser(ModelSerializer):
 
 class TutoringFormSerializer(ModelSerializer):
    
-    courses = CourseSerializer(many=True)
+    courses = CourseSerializer(many=True, required=False)
     Tutor = SerializerMethodField()
 
     class Meta:
@@ -31,10 +32,16 @@ class TutoringFormSerializer(ModelSerializer):
 
 
 class UserSerializer(ModelSerializer):
-    TutoringForm = TutoringFormSerializerNoUser()
+    TutoringForm = serializers.PrimaryKeyRelatedField(read_only=True)
+    
     class Meta:
         model = CustomUser
-        fields = ['id', 'username', 'first_name', 'last_name', 'willTutor', 'TutoringForm']
+        fields = ['id', 'username', 'first_name', 'last_name', 'password', "email", 'willTutor', 'TutoringForm']
+        extra_kwargs = {"password": {"write_only": True}, "TutoringForm": {"read_only": True}}
+
+    def create(self, validated_data):
+        user = CustomUser.objects.create_user(**validated_data)
+        return user
 
 
 

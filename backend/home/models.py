@@ -5,7 +5,13 @@ from django.core.exceptions import ValidationError
 
 class CustomUser(AbstractUser):
     willTutor = models.BooleanField(default=False)
-
+    TutoringForm = models.OneToOneField(
+        'TutoringForm',
+        on_delete=models.CASCADE,
+        related_name='User',
+        null=True,  # Allows the TutoringForm to be null
+        blank=True  # Allows the TutoringForm to be blank
+    )
 
     def __str__(self):
         return self.username
@@ -20,7 +26,7 @@ class Course(models.Model):
         return self.CourseNumber
     
 class TutoringForm(models.Model):
-    Tutor = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name="TutoringForm")
+    Tutor = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name="TutorForm")
     courses = models.ManyToManyField(Course)
     Description = models.CharField(max_length = 200, default= '')
 

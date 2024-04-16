@@ -1,6 +1,7 @@
 from django.urls import path, include
 from rest_framework import routers
-from .views import FormCreationView, UserViewSet, CourseViewSet, TutoringFormViewSet, TutoringSessionViewSet, UserRegistrationView, LoginAPIView
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from .views import FormCreationView, UserViewSet, CourseViewSet, TutoringFormViewSet, TutoringSessionViewSet, CreateUserView, SingleUserView
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
@@ -10,10 +11,12 @@ router.register(r'tutoringforms', TutoringFormViewSet)
 
 
 urlpatterns = [
-    path('register/', UserRegistrationView.as_view(), name='register'),
-    path('login/', LoginAPIView.as_view(), name='login'),
+    path('register/', CreateUserView.as_view(), name='register'),
     path('api/', include(router.urls)),
     path("api-auth/", include("rest_framework.urls")),
-    path('form-creation/', FormCreationView.as_view(), name='Form-Creation')
+    path('form/creation/', FormCreationView.as_view(), name='Form-Creation'),
+    path("token/", TokenObtainPairView.as_view(), name="get_token"),
+    path("token/refresh/", TokenRefreshView.as_view(), name="refresh"),
+    path('user/', SingleUserView.as_view(), name='single-user-view'),
 
 ]

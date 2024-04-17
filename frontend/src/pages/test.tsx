@@ -2,6 +2,7 @@ import FormDisplay from "../components/FormDisplay";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import api from "../api";
 
 function Test() {
   const [data, setData] = useState([]);
@@ -20,7 +21,9 @@ function Test() {
       });
   }, []);
 
-  const handleClick = () => {};
+  const handleClick = (id, e) => {
+    console.log(id);
+  };
 
   return (
     <div>
@@ -32,13 +35,6 @@ function Test() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <button
-          onClick={() => {
-            handleClick;
-          }}
-        >
-          Search
-        </button>
       </div>
       {data.length > 0 &&
         data
@@ -53,12 +49,22 @@ function Test() {
               ) ||
                 form.Tutor.first_name
                   .toLowerCase()
+                  .includes(search.toLowerCase()) ||
+                form.Tutor.last_name
+                  .toLowerCase()
                   .includes(search.toLowerCase()))
             );
           })
           .map((form) => (
             <div>
               <FormDisplay Form={form} />
+              <button
+                onClick={(e) => {
+                  handleClick(form.id, e);
+                }}
+              >
+                Search
+              </button>
             </div>
           ))}
 

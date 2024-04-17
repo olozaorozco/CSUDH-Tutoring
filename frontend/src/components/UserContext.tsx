@@ -23,7 +23,7 @@ export const UserProvider = ({ children }) => {
         // Handle token refresh or logout
         const refreshToken = localStorage.getItem(REFRESH_TOKEN);
         try {
-          const res = await api.post("/token/refresh", {
+          const res = await api.post("/token/refresh/", {
             refresh: refreshToken,
           });
           if (res.status === 200) {

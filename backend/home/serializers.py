@@ -32,11 +32,11 @@ class TutoringFormSerializer(ModelSerializer):
 
 
 class UserSerializer(ModelSerializer):
-    TutoringForm = serializers.PrimaryKeyRelatedField(read_only=True)
+    TutorForm = TutoringFormSerializerNoUser(read_only=True)
     
     class Meta:
         model = CustomUser
-        fields = ['id', 'username', 'first_name', 'last_name', 'password', "email", 'willTutor', 'TutoringForm']
+        fields = ['id', 'username', 'first_name', 'last_name', 'password', "email", 'willTutor', 'TutorForm']
         extra_kwargs = {"password": {"write_only": True}, "TutoringForm": {"read_only": True}}
 
     def create(self, validated_data):

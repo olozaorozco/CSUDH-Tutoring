@@ -3,7 +3,6 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import CourseDisplay from "../components/CourseDisplay";
 import api from "../api";
-import { useUser } from "../components/UserContext";
 
 function FormCreation() {
   const [data, setData] = useState([]);
@@ -12,8 +11,6 @@ function FormCreation() {
   const [search, setSearch] = useState("");
 
   const handleClick = () => {};
-
-  const { user} = useUser();
 
   //const history = useHistory();
   useEffect(() => {
@@ -27,18 +24,12 @@ function FormCreation() {
         setError(error);
       });
   }, []);
-  console.log(user);
 
   const [formData, setFormData] = useState({
-    Tutor: user ? user.id : null,
+    Tutor: 29,
     courses: [],
     Description: "",
   });
-
-  if (!user) {
-    return <div>Loading...</div>;
-    // Display a loading state while waiting for user data
-  }
 
   const handleChange = (e) => {
     setFormData({

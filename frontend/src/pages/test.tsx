@@ -8,8 +8,14 @@ function Test() {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [search, setSearch] = useState("");
+  const [userFormID, setUserFormID] = useState(null);
 
   useEffect(() => {
+    const userData = localStorage.getItem("user");
+    const user = JSON.parse(userData);
+    if (user.TutorForm != null) {
+      setUserFormID(user.TutorForm.id);
+    }
     axios
       .get("http://localhost:8000/api/tutoringforms/")
       .then((response) => {
@@ -52,7 +58,8 @@ function Test() {
                   .includes(search.toLowerCase()) ||
                 form.Tutor.last_name
                   .toLowerCase()
-                  .includes(search.toLowerCase()))
+                  .includes(search.toLowerCase())) &&
+              form.id != userFormID
             );
           })
           .map((form) => (

@@ -6,6 +6,12 @@ import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 
 const Login = () => {
   const navigate = useNavigate();
+  localStorage.clear();
+
+  const getUser = async () => {
+    const userData = await api.get("/user/");
+    return userData;
+  };
 
   const [formData, setFormData] = useState({
     username: "",
@@ -25,7 +31,16 @@ const Login = () => {
       console.log("it worked");
       localStorage.setItem(ACCESS_TOKEN, response.data.access);
       localStorage.setItem(REFRESH_TOKEN, response.data.refresh);
-      navigate("/");
+
+      const userData = await getUser();
+      localStorage.setItem("user", JSON.stringify(userData.data));
+      const localUser = localStorage.getItem("user");
+      const user = JSON.parse(localUser);
+      if (user.willTutor == false || user.TutorForm != null) {
+        navigate("/");
+      } else {
+        navigate("/form");
+      }
       // Redirect or update authentication state
     } catch (error) {
       console.error("Login failed:", error);

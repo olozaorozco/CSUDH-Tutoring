@@ -12,8 +12,12 @@ function FormCreation() {
 
   const handleClick = () => {};
 
-  //const history = useHistory();
+  const [userID, setUserID] = useState(null);
+
   useEffect(() => {
+    const userData = localStorage.getItem("user");
+    const user = JSON.parse(userData);
+    setUserID(user.id);
     axios
       .get("http://localhost:8000/api/courses/")
       .then((response) => {
@@ -26,10 +30,19 @@ function FormCreation() {
   }, []);
 
   const [formData, setFormData] = useState({
-    Tutor: 29,
+    Tutor: userID,
     courses: [],
     Description: "",
   });
+
+  useEffect(() => {
+    if (userID != null) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        Tutor: userID,
+      }));
+    }
+  }, [userID]);
 
   const handleChange = (e) => {
     setFormData({
@@ -59,13 +72,13 @@ function FormCreation() {
     try {
       const response = await api.post("/form/creation/", formData);
 
-      if (!response.ok) {
+      if (response.status >= 400) {
         throw new Error("Form Creation failed");
       }
 
       // Registration successful
       console.log("Form created successfully");
-      navigate("/login");
+      navigate("/");
     } catch (error) {
       console.error("Error registering user:", error.message);
     }

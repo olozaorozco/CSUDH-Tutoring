@@ -6,8 +6,9 @@ import Login from "./pages/Login";
 import FormCreation from "./pages/FormCreation";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NotFound from "./pages/NotFound";
+import Chat from "./pages/Chat";
 import { UserProvider } from "./components/UserContext";
-
+import ChatList from "./pages/ChatList";
 function Logout(){
   const navigate = useNavigate();
   localStorage.clear()
@@ -31,6 +32,9 @@ function App() {
           <Route path="/logout" element={<Logout />} />
           <Route path="/form" element={<ProtectedRoute><FormCreation /></ProtectedRoute>} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/chat/view" element={<Chat />} />
+          <Route path="/chat/list" element={<ChatList />} />
+
         </Routes>
       </Router>
     </UserProvider>

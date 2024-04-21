@@ -3,11 +3,32 @@ from django.db import models
 from datetime import date
 from django.core.exceptions import ValidationError
 
+
+
 class CustomUser(AbstractUser):
     willTutor = models.BooleanField(default=False)
 
     def __str__(self):
         return self.username
+    
+class Chat(models.Model):
+    user1 = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="Chat1")
+    user2 = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="Chat2")
+
+    def clean(self):
+        # Check if a chat already exists between the two users in any order
+        if Chat.objects.filter(user1=self.user1, user2=self.user2).exists() or Chat.objects.filter(user1=self.user2, user2=self.user1).exists():
+            raise ValidationError("A chat session between these users already exists.")
+    def save(self, *args, **kwargs):
+        self.clean()
+        super().save(*args, **kwargs)
+
+class Message(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="Message")
+    chat = models.ForeignKey(Chat, on_delete=models.CASCADE, related_name="Message")
+    text = models.CharField(max_length=1000)
+    time = models.DateTimeField(auto_now_add=True)
+  
     
 class Course(models.Model):
     CourseNumber = models.CharField(max_length=50)

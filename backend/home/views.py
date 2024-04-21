@@ -1,12 +1,51 @@
-from .models import CustomUser, TutoringSession, TutoringForm, Course
+from .models import CustomUser, TutoringSession, TutoringForm, Course, Chat, Message
 from rest_framework import viewsets, status
-from .serializers import UserSerializer, TutoringFormSerializer, TutoringSessionSerializer, CourseSerializer
-from django.http import JsonResponse
+from .serializers import ChatSerializerCreate, MessageSerializerCreate, UserSerializer, TutoringFormSerializer, TutoringSessionSerializer, CourseSerializer, ChatSerializer, MessageSerializer
+from django.http import JsonResponse, HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
 from rest_framework import generics
+from django.core.serializers import serialize
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from django.db.models import Q
+
+class ChatView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes= [IsAuthenticated]
+
+    def get(self, request, chat_id):
+        try:
+            messages = Message.objects.filter(chat=chat_id).order_by('time')
+            serialized = MessageSerializer(messages, many=True)
+            return Response(serialized.data)
+        except Message.DoesNotExist:
+            return Response({'error': 'Messages not found'}, status=404)
+
+class ChatListView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes= [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        user = self.request.user
+        userChats = Chat.objects.filter(Q(user1=user) | Q(user2=user))
+        serializer = ChatSerializer(userChats, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+# class ChatView(generics.RetrieveAPIView):
+#     serializer_class = ChatSerializer
+#     permission_classes = [IsAuthenticated]
+
+#     def get_queryset(self):
+#         chat_id = self.kwargs['pk']
+#         chat_messages = Message.objects.filter(chat_id=chat_id).order_by('time')
+#         return chat_messages
+#     def list(self, request, *args, **kwargs):
+#         queryset = self.get_queryset()
+#         serialized = serialize('json', queryset)
+#         return HttpResponse(serialized, content_type='application/json')
+    
 
 class SingleUserView(generics.RetrieveAPIView):
     serializer_class = UserSerializer
@@ -15,6 +54,16 @@ class SingleUserView(generics.RetrieveAPIView):
     def get_object(self):
         # The request.user object contains the authenticated user
         return self.request.user
+    
+class CreateChatView(generics.CreateAPIView):
+    queryset = Chat.objects.all()
+    serializer_class = ChatSerializerCreate
+    permission_classes = [AllowAny]
+
+class CreateMessageView(generics.CreateAPIView):
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializerCreate
+    permission_classes = [AllowAny]    
 
 class CreateUserView(generics.CreateAPIView):
     queryset = CustomUser.objects.all()

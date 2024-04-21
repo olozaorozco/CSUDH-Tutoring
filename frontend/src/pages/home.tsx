@@ -29,6 +29,10 @@ function Home() {
         <Link to="/Form">
           <button>Form</button>
         </Link>
+        <h1>Link to Chat Test</h1>
+        <Link to="/chat/list">
+          <button>To chat site</button>
+        </Link>
       </div>
     </>
   );

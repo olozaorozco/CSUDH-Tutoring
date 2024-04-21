@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
-from .models import CustomUser, TutoringForm, TutoringSession, Course
+from .models import CustomUser, TutoringForm, TutoringSession, Course, Chat, Message
 from rest_framework import serializers
 
 
@@ -51,5 +51,42 @@ class TutoringSessionSerializer(ModelSerializer):
     class Meta:
         model = TutoringSession
         fields = ['id', 'Location', 'Student', 'TutoringForm', 'date_created', 'Tutoring_Date']
+
+class ChatSerializer(ModelSerializer):
+    user1 = UserSerializer()
+    user2 = UserSerializer()
+
+    class Meta:
+        model = Chat
+        fields = ['id', 'user1', 'user2']
+
+class MessageSerializer(ModelSerializer):
+    user = UserSerializer()
+    class Meta:
+        model = Message
+        fields = ['id', 'user', 'chat', 'text', 'time']
+        
+class MessageSerializerCreate(ModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all())
+    chat = serializers.PrimaryKeyRelatedField(queryset=Chat.objects.all())
+
+    class Meta:
+        model = Message
+        fields = ['id', 'user', 'chat', 'text', 'time']
+    
+    def create(self, validated_data):
+        return Message.objects.create(**validated_data)
+    
+class ChatSerializerCreate(ModelSerializer):
+    user1 = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all())
+    user2 = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all())
+
+    class Meta:
+        model = Chat
+        fields = ['id', 'user1', 'user2']
+    
+    def create(self, validated_data):
+        return Chat.objects.create(**validated_data)
+
 
 

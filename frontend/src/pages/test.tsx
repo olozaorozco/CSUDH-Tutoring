@@ -1,7 +1,7 @@
 import FormDisplay from "../components/FormDisplay";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../api";
 
 function Test() {
@@ -9,6 +9,8 @@ function Test() {
   const [error, setError] = useState(null);
   const [search, setSearch] = useState("");
   const [userFormID, setUserFormID] = useState(null);
+  const [userID, setUserID] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const userData = localStorage.getItem("user");
@@ -16,6 +18,8 @@ function Test() {
     if (user.TutorForm != null) {
       setUserFormID(user.TutorForm.id);
     }
+    setUserID(user.id);
+
     axios
       .get("http://localhost:8000/api/tutoringforms/")
       .then((response) => {
@@ -27,8 +31,14 @@ function Test() {
       });
   }, []);
 
-  const handleClick = (id, e) => {
-    console.log(id);
+  const handleClick = async (id, e) => {
+    const response = await api.post("/chat/create/", {
+      user1: userID,
+      user2: id,
+    });
+    const chatId = response.data.id;
+    localStorage.setItem("chatId", chatId);
+    navigate("/chat/view");
   };
 
   return (
@@ -67,10 +77,10 @@ function Test() {
               <FormDisplay Form={form} />
               <button
                 onClick={(e) => {
-                  handleClick(form.id, e);
+                  handleClick(form.Tutor.id, e);
                 }}
               >
-                Search
+                Chat
               </button>
             </div>
           ))}

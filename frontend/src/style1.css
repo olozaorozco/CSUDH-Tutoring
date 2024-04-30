@@ -1,0 +1,14 @@
+ul.errorlist {display: none}
+
+.csudh_red{background-color: #860038;}
+
+.csudh_logo{
+    display: block;
+    margin-left: auto;
+    margin-right: 600;
+    width: 200px;
+}
+
+.btn_margin{
+    margin: 5px;
+}

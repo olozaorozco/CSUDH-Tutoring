@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import "../css/style1.css";
+import LOGO from "../css/CSUDH_LOGO.png";
 
 function Navbar() {
     const [firstName, setFirstName] = useState("");
@@ -12,7 +14,8 @@ function Navbar() {
 
     return(
         <nav className='navbar navbar-dark csudh_red' style={{minHeight:108}}>
-             <h1>Hello {firstName}</h1>
+             <img src={LOGO} alt="CSUDH LOGO" className = "csudh_logo"></img>
+             <h1 style={{color:"black", marginRight:150}}>Hello {firstName}</h1>
              <Link to="/Login">
                 <button className="btn btn-primary btn_margin" >Login</button>
              </Link>

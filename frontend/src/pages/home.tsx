@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Navbar from "../components/NavBar";
 
 function Home() {
   const [firstName, setFirstName] = useState("");
@@ -11,7 +12,7 @@ function Home() {
   });
   return (
     <>
-      <h1>Hello {firstName}</h1>
+      <Navbar></Navbar>
       <div>
         <h1>Link to search</h1>
         <Link to="/test">

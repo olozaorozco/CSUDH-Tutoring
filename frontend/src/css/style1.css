@@ -4,8 +4,8 @@ ul.errorlist {display: none}
 
 .csudh_logo{
     display: block;
-    margin-left: auto;
-    margin-right: 600;
+    margin-left: 15px;
+    /* margin-right: 600px; */
     width: 200px;
 }
 

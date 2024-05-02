@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import CourseDisplay from "../components/CourseDisplay";
 import api from "../api";
+import Navbar from "../components/NavBar";
 
 function FormCreation() {
   const [data, setData] = useState([]);
@@ -86,61 +87,75 @@ function FormCreation() {
 
   return (
     <>
-      <div>
-        <input
-          type="text"
-          id="searchInput"
-          placeholder="Enter your search term"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <button
-          onClick={() => {
-            handleClick;
-          }}
-        >
-          Search
-        </button>
-      </div>
-      <form onSubmit={handleSubmit}>
-        {data.length > 0 &&
-          data
-            .filter((course) => {
-              return (
-                course.CourseNumber.toLowerCase().includes(
-                  search.toLowerCase()
-                ) || course.Title.toLowerCase().includes(search.toLowerCase())
-              );
-            })
-            .map((course) => (
-              <div>
-                <CourseDisplay Course={course} />
-                <input
-                  type="checkbox"
-                  name="addCourse"
-                  checked={formData.courses.includes(course.id)}
-                  onChange={(e) => handleCheck(e, course.id)}
+    <Navbar></Navbar>
+    <h2 className="mt-2 ms-2">What Courses Can You Tutor?</h2>
+    <div className="ms-2">
+        <div className="mb-3">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Enter your search term"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="me-1"
+            style={{height:32, borderRadius:10, textAlign:"center"}}
+          />
+          <button
+            onClick={() => {
+              handleClick;
+            }}
+            className="btn btn-sm btn-primary"
+          >
+            Search
+          </button>
+        </div>
+        <form onSubmit={handleSubmit}>
+          {data.length > 0 &&
+            data
+              .filter((course) => {
+                return (
+                  course.CourseNumber.toLowerCase().includes(
+                    search.toLowerCase()
+                  ) || course.Title.toLowerCase().includes(search.toLowerCase())
+                );
+              })
+              .map((course) => (
+                <div>
+                  <CourseDisplay Course={course} />
+                  <input
+                    type="checkbox"
+                    name="addCourse"
+                    checked={formData.courses.includes(course.id)}
+                    onChange={(e) => handleCheck(e, course.id)}
+                    className="mt-2"
                   //placeholder="Username"
-                />
-              </div>
-            ))}
-        <input
-          type="text"
-          name="Description"
-          value={formData.Description}
-          onChange={handleChange}
-          placeholder="Description"
-        />
-        <button type="submit">Create</button>
-      </form>
-      <Link to="/">
-        <button>Back</button>
-      </Link>
-      <ul>
-        {formData.courses.map((course, index) => (
-          <li key={index}>{course}</li>
-        ))}
-      </ul>
+                  />
+                </div>
+              ))}
+          <div className="mb-3">
+            <input
+              type="text"
+              name="Description"
+              value={formData.Description}
+              onChange={handleChange}
+              placeholder="Description"
+              className="me-1"
+              style={{ height: 32, borderRadius: 10, textAlign: "center" }}
+            />
+            <button type="submit" className="btn btn-sm btn-primary">Create</button>
+          </div>
+          
+        </form>
+        <Link to="/">
+          <button>Back</button>
+        </Link>
+        <ul>
+          {formData.courses.map((course, index) => (
+            <li key={index}>{course}</li>
+          ))}
+        </ul>
+    </div>
+      
     </>
   );
 }

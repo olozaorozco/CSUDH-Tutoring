@@ -4,6 +4,7 @@ import api from "../api";
 import Chat from "./Chat";
 import { useState, useEffect } from "react";
 import ChatListComponent from "../components/ChatListComponenet";
+import Navbar from "../components/NavBar";
 
 function ChatList() {
   const [data, setData] = useState([]);
@@ -26,6 +27,7 @@ function ChatList() {
   }, []);
   return (
     <>
+    <Navbar></Navbar>
       <div>
         {data.map((chat) => (
           <ChatListComponent Chat={chat} authenticatedUserId={userId} />

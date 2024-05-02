@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Message from "../components/Message";
 import api from "../api";
+import Navbar from "../components/NavBar";
 
 function Chat() {
   const handleClick = () => {
@@ -47,6 +48,7 @@ function Chat() {
 
   return (
     <>
+      <Navbar></Navbar>
       <div>
         {data.length > 0 ? (
           data.map((message, index) => (

@@ -50,8 +50,8 @@ const Login = () => {
 
   return (
     <>
-      <NavbarLogin></NavbarLogin>
-      <form onSubmit={handleSubmit}>
+      <NavbarLogin registering={"Register"}></NavbarLogin>
+      <form onSubmit={handleSubmit} >
         <div className="d-flex flex-column align-items-center">
           <div className="p-2">
             <input

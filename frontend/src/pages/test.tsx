@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../api";
+import Navbar from "../components/NavBar";
 
 function Test() {
   const [data, setData] = useState([]);
@@ -42,7 +43,9 @@ function Test() {
   };
 
   return (
+    
     <div>
+    <Navbar></Navbar>
       <div>
         <input
           type="text"

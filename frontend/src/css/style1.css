@@ -1,6 +1,6 @@
 ul.errorlist {display: none}
 
-.csudh_red{background-color: #860038;}
+.csudh_red{background-color: #860038 !important;}
 
 .csudh_logo{
     display: block;

@@ -17,7 +17,7 @@ function Navbar() {
              <img src={LOGO} alt="CSUDH LOGO" className = "csudh_logo"></img>
              <h1 style={{color:"black", marginRight:150}}>Hello {firstName}</h1>
              <Link to="/Login">
-                <button className="btn btn-primary btn_margin" >Login</button>
+                <button className="btn btn-primary btn_margin" >Logout</button>
              </Link>
         </nav>
     );

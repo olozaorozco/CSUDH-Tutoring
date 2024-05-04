@@ -1,6 +1,13 @@
 ul.errorlist {display: none}
 
 .csudh_red{background-color: #860038 !important;}
+.csudh_yellow{background-color: rgb(238, 186, 29) !important;}
+
+.body-background{
+    background-color: darkgray;
+    min-height: 100vh;
+    height: 100%;
+}
 
 .csudh_logo{
     display: block;

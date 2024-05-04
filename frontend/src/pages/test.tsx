@@ -44,54 +44,62 @@ function Test() {
 
   return (
     
-    <div>
-    <Navbar></Navbar>
-      <div>
-        <input
-          type="text"
-          id="searchInput"
-          placeholder="Enter your search term"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-      </div>
-      {data.length > 0 &&
-        data
-          .filter((form) => {
-            return (
-              form.Tutor.willTutor &&
-              (form.courses.some(
-                (course) =>
-                  course.CourseNumber.toLowerCase().includes(
-                    search.toLowerCase()
-                  ) || course.Title.toLowerCase().includes(search.toLowerCase())
-              ) ||
-                form.Tutor.first_name
-                  .toLowerCase()
-                  .includes(search.toLowerCase()) ||
-                form.Tutor.last_name
-                  .toLowerCase()
-                  .includes(search.toLowerCase())) &&
-              form.id != userFormID
-            );
-          })
-          .map((form) => (
-            <div>
-              <FormDisplay Form={form} />
-              <button
-                onClick={(e) => {
-                  handleClick(form.Tutor.id, e);
-                }}
-              >
-                Chat
-              </button>
-            </div>
-          ))}
+    <div className="body-background">
+      <Navbar></Navbar>
+      <h2 className="mt-2 ms-2">Search For Tutors Below!</h2>
+      <h3 className="mt-2 ms-2">Search By Tutor Name Or Course Name</h3>
+      <div className="ms-2">
+        <div className="mb-3">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Enter your search term"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="me-1"
+            style={{height:32, borderRadius:10, textAlign:"center"}}
+          />
+        </div>
+        {data.length > 0 &&
+          data
+            .filter((form) => {
+              return (
+                form.Tutor.willTutor &&
+                (form.courses.some(
+                  (course) =>
+                    course.CourseNumber.toLowerCase().includes(
+                      search.toLowerCase()
+                    ) || course.Title.toLowerCase().includes(search.toLowerCase())
+                ) ||
+                  form.Tutor.first_name
+                    .toLowerCase()
+                    .includes(search.toLowerCase()) ||
+                  form.Tutor.last_name
+                    .toLowerCase()
+                    .includes(search.toLowerCase())) &&
+                form.id != userFormID
+              );
+            })
+            .map((form) => (
+              <div className="mb-3">
+                <FormDisplay Form={form} />
+                <button
+                  onClick={(e) => {
+                    handleClick(form.Tutor.id, e);
+                  }}
+                  className="btn btn-dark csudh_red"
+                >
+                  Chat
+                </button>
+              </div>
+            ))}
 
-      <Link to="/">
-        <button>Back</button>
-      </Link>
-    </div>
+        <Link to="/">
+          <button className="mb-3 btn btn-dark csudh_red">Back</button>
+        </Link>
+      </div>
+      </div>
+      
   );
 }
 

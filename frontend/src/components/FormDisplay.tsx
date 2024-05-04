@@ -37,7 +37,7 @@ const FormDisplay = ({ Form }: Props) => {
 
   return (
     <div
-      className="card mb-3"
+      className="card mb-3 csudh_yellow border border-dark"
       style={cardStyle}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}

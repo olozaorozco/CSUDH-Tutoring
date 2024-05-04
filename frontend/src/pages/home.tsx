@@ -11,7 +11,7 @@ function Home() {
     setFirstName(user.first_name);
   });
   return (
-    <>
+    <div className="body-background">
       <Navbar></Navbar>
       <div>
         <h1>Link to search</h1>
@@ -27,7 +27,7 @@ function Home() {
           <button>To chat site</button>
         </Link>
       </div>
-    </>
+    </div>
   );
 }
 

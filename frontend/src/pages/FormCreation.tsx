@@ -9,6 +9,7 @@ function FormCreation() {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [search, setSearch] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleClick = () => {};
 
@@ -69,9 +70,10 @@ function FormCreation() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     try {
       const response = await api.post("/form/creation/", formData);
-
+      console.log("Form Submitting");
       if (response.status >= 400) {
         throw new Error("Form Creation failed");
       }
@@ -81,6 +83,7 @@ function FormCreation() {
       navigate("/");
     } catch (error) {
       console.error("Error registering user:", error.message);
+      setIsSubmitting(false);
     }
   };
 

@@ -9,7 +9,7 @@ from rest_framework import generics
 from django.core.serializers import serialize
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from django.db.models import Q
+from django.db.models import Q, Max
 
 class ChatView(APIView):
     authentication_classes = [JWTAuthentication]
@@ -29,7 +29,7 @@ class ChatListView(APIView):
 
     def post(self, request, *args, **kwargs):
         user = self.request.user
-        userChats = Chat.objects.filter(Q(user1=user) | Q(user2=user))
+        userChats = Chat.objects.filter(Q(user1=user) | Q(user2=user)).annotate(latest_message_time=Max('Message__time')).order_by('-latest_message_time')
         serializer = ChatSerializer(userChats, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     

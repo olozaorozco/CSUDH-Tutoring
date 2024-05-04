@@ -1,6 +1,8 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 from .models import CustomUser, TutoringForm, TutoringSession, Course, Chat, Message
 from rest_framework import serializers
+import logging
+logger = logging.getLogger(__name__)
 
 
 class CourseSerializer(ModelSerializer):
@@ -55,13 +57,31 @@ class TutoringSessionSerializer(ModelSerializer):
 class ChatSerializer(ModelSerializer):
     user1 = UserSerializer()
     user2 = UserSerializer()
+    latestMessage = serializers.SerializerMethodField()
 
     class Meta:
         model = Chat
-        fields = ['id', 'user1', 'user2']
+        fields = ['id', 'user1', 'user2', 'latestMessage']
+
+    def get_latestMessage(self, obj):
+        # Retrieve the latest message related to the chat
+        latest_message = Message.objects.filter(chat=obj).order_by('-time').first()
+        if latest_message:
+            message_data = {
+                'id': latest_message.id,
+                'text': latest_message.text,
+                'time': latest_message.time
+            }
+            return message_data
+        return None
 
 class MessageSerializer(ModelSerializer):
     user = UserSerializer()
+    time = serializers.SerializerMethodField()
+
+    def get_time(self, obj):
+        return obj.time.strftime("%Y-%m-%d %H:%M")
+    
     class Meta:
         model = Message
         fields = ['id', 'user', 'chat', 'text', 'time']
@@ -87,6 +107,7 @@ class ChatSerializerCreate(ModelSerializer):
     
     def create(self, validated_data):
         return Chat.objects.create(**validated_data)
+    
 
 
 

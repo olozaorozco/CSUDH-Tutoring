@@ -13,6 +13,10 @@ interface Chat {
     first_name: string;
     last_name: string;
   };
+  latestMessage: {
+    text: string;
+    time: string;
+  } | null;
 }
 
 interface Props {
@@ -27,6 +31,8 @@ const handleClick = (id) => {
 };
 
 const ChatListComponent = ({ Chat, authenticatedUserId }: Props) => {
+  console.log(Chat.user1.first_name);
+  console.log(Chat.user2.first_name);
   const navigate = useNavigate();
   const handleClick = (id) => {
     localStorage.setItem("chatId", id);
@@ -45,9 +51,18 @@ const ChatListComponent = ({ Chat, authenticatedUserId }: Props) => {
 
   return (
     <div className="card text-bg-primary mb-3" style={cardStyle}>
-      <div className="card-header">{titleName}</div>
+      <div className="card-header">
+        {titleName}{" "}
+        {Chat.latestMessage && Chat.latestMessage.time && (
+          <span>{new Date(Chat.latestMessage.time).toLocaleString()}</span>
+        )}{" "}
+      </div>
       <div className="card-body">
-        <p className="card-text">Nothing for Now!!!</p>
+        {Chat.latestMessage != null ? (
+          <p className="card-text">{Chat.latestMessage.text}</p>
+        ) : (
+          <p className="card-text">No messages yet</p>
+        )}
       </div>
       <button
         onClick={(e) => {

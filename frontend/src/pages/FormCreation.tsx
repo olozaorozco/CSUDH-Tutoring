@@ -38,6 +38,12 @@ function FormCreation() {
   });
 
   useEffect(() => {
+    const response = api.get('/form/view/')
+    
+  })
+
+
+  useEffect(() => {
     if (userID != null) {
       setFormData((prevFormData) => ({
         ...prevFormData,

@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework import routers
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from .views import CreateOrGetChatView, ChatListView, CreateMessageView, ChatView, CreateChatView, CreateSessionView, FormCreationView, UserViewSet, CourseViewSet, TutoringFormViewSet, TutoringSessionViewSet, CreateUserView, SingleUserView
+from .views import *
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
@@ -23,5 +23,6 @@ urlpatterns = [
     path('message/create/', CreateMessageView.as_view(), name = 'message_create'),
     path('chat/<int:chat_id>/', ChatView.as_view(), name = 'chat_view'),
     path('chat/list/', ChatListView.as_view(), name = 'chat_List'),
+    path('form/view/', FormView.as_view(), name='Form-View'),
 
 ]

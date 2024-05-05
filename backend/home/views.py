@@ -35,19 +35,13 @@ class ChatListView(APIView):
         serializer = ChatSerializer(userChats, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
-# class ChatView(generics.RetrieveAPIView):
-#     serializer_class = ChatSerializer
-#     permission_classes = [IsAuthenticated]
+class FormView(generics.RetrieveAPIView):
+    serializer_class = TutoringFormSerializer
+    permission_classes = [IsAuthenticated]
 
-#     def get_queryset(self):
-#         chat_id = self.kwargs['pk']
-#         chat_messages = Message.objects.filter(chat_id=chat_id).order_by('time')
-#         return chat_messages
-#     def list(self, request, *args, **kwargs):
-#         queryset = self.get_queryset()
-#         serialized = serialize('json', queryset)
-#         return HttpResponse(serialized, content_type='application/json')
-    
+    def get_object(self):
+        user = self.request.user
+        return TutoringForm.objects.filter(Tutor=user)
 
 class SingleUserView(generics.RetrieveAPIView):
     serializer_class = UserSerializer
@@ -62,30 +56,6 @@ class CreateChatView(generics.CreateAPIView):
     serializer_class = ChatSerializerCreate
     permission_classes = [AllowAny]
 
-class CreateOrGetChatView(CreateModelMixin, RetrieveModelMixin, APIView):
-    queryset = Chat.objects.all()
-    serializer_class = ChatSerializerCreate
-    permission_classes = [AllowAny]
-
-    def post(self, request, *args, **kwargs):
-
-        try:
-            response = self.create(request, *args, **kwargs)
-            if response.status_code == 201:
-                return response
-            
-        except ValidationError as e:
-            return self.retrieve(request, *args, **kwargs)
-        
-        
-    def get_serializer_context(self):
-        return {'request': self.request}
-        
-    def get_serializer(self, *args, **kwargs):
-          
-        serializer_class = self.serializer_class
-        kwargs['context'] = self.get_serializer_context()
-        return serializer_class(*args, **kwargs)
     
     
 

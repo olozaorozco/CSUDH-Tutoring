@@ -37,7 +37,7 @@ function App() {
           <Route path="/chat/view" element={<Chat />} />
           <Route path="/chat/list" element={<ChatList />} />
           <Route path="/calendar" element={<CalendarTest />} />
-          <Route path="/calendar/:date" element={<Date />} />
+          <Route path="/calendar/:day/:date" element={<ProtectedRoute><Date /></ProtectedRoute>} />
         </Routes>
       </Router>
     </UserProvider>

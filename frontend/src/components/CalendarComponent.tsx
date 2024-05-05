@@ -5,7 +5,11 @@ import { Link, useNavigate } from "react-router-dom";
 
 function CalendarComponent() {
   const navigate = useNavigate();
-  const onChange = (date) => navigate(date.toISOString().split('T')[0]);
+  const onChange = (e) => {
+    const day = e.toDateString().split(' ')[0];
+    const date = e.toISOString().split('T')[0];
+    return navigate(`${day}/${date}`);
+  }
   return (
     <>
     <div>

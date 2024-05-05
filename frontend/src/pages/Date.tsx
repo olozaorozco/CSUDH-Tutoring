@@ -5,10 +5,11 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 function Date() {
-    const { date } = useParams();
-    const [data, setData] = useState([]);
-    const [error, setError] = useState(null);
-    const [userId, setUserId] = useState(null);
+  const { day } = useParams();
+  const { date } = useParams();
+  const [data, setData] = useState([]);
+  const [error, setError] = useState(null);
+  const [userId, setUserId] = useState(null);
   
     useEffect(() => {
       const userData = localStorage.getItem("user");
@@ -24,12 +25,18 @@ function Date() {
       };
       fetchData();
     }, []);
-
   return (
     <>
       <div>
         <h1>Available Tutors</h1>
-
+        {data.map((user) => {
+          if (user.willTutor == true /** && user.TutorForm.availability.includes(day) /**/) {
+            return (
+              <>
+                <h2>{user.username} {user.last_name}</h2>
+                <h3>{user.email}</h3>
+              </>
+          );}})}
       </div>
       <Link to="/calendar">
         <button>Back</button>

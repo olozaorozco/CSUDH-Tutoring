@@ -33,7 +33,7 @@ function Date() {
           if (user.willTutor == true /** && user.TutorForm.availability.includes(day) /**/) {
             return (
               <>
-                <h2>{user.username} {user.last_name}</h2>
+                <h2>{user.first_name} {user.last_name}</h2>
                 <h3>{user.email}</h3>
               </>
           );}})}

@@ -21,7 +21,9 @@ function Navbar() {
 
     return(
         <nav className='navbar navbar-dark csudh_red' style={navStyle}>
-             <img src={LOGO} alt="CSUDH LOGO" className = "csudh_logo"></img>
+            <Link to='/'>
+              <img src={LOGO} alt="CSUDH LOGO" className = "csudh_logo"></img>
+            </Link>
              <h1 style={{color:"black", marginRight:150}}>Hello {firstName}</h1>
              <Link to="/Login">
                 <button className="btn btn-primary btn_margin" >Logout</button>

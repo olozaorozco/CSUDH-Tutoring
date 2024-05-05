@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Navbar from "../components/NavBar";
 
 function Home() {
   const [firstName, setFirstName] = useState("");
@@ -10,20 +11,12 @@ function Home() {
     setFirstName(user.first_name);
   });
   return (
-    <>
-      <h1>Hello {firstName}</h1>
+    <div className="body-background" style={{paddingTop:115}}>
+      <Navbar></Navbar>
       <div>
         <h1>Link to search</h1>
         <Link to="/test">
           <button>To test site</button>
-        </Link>
-        <h2>Register</h2>
-        <Link to="/register">
-          <button>Register Here</button>
-        </Link>
-        <h2>Login</h2>
-        <Link to="/Login">
-          <button>Login</button>
         </Link>
         <h3>Form</h3>
         <Link to="/Form">
@@ -38,7 +31,7 @@ function Home() {
           <button>To calendar site</button>
         </Link>
       </div>
-    </>
+    </div>
   );
 }
 

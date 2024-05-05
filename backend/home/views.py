@@ -9,7 +9,9 @@ from rest_framework import generics
 from django.core.serializers import serialize
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from django.db.models import Q
+from django.db.models import Q, Max
+from rest_framework.mixins import RetrieveModelMixin, CreateModelMixin
+from rest_framework.exceptions import ValidationError
 
 class ChatView(APIView):
     authentication_classes = [JWTAuthentication]
@@ -29,23 +31,17 @@ class ChatListView(APIView):
 
     def post(self, request, *args, **kwargs):
         user = self.request.user
-        userChats = Chat.objects.filter(Q(user1=user) | Q(user2=user))
+        userChats = Chat.objects.filter(Q(user1=user) | Q(user2=user)).annotate(latest_message_time=Max('Message__time')).order_by('-latest_message_time')
         serializer = ChatSerializer(userChats, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
-# class ChatView(generics.RetrieveAPIView):
-#     serializer_class = ChatSerializer
-#     permission_classes = [IsAuthenticated]
+class FormView(generics.RetrieveAPIView):
+    serializer_class = TutoringFormSerializer
+    permission_classes = [IsAuthenticated]
 
-#     def get_queryset(self):
-#         chat_id = self.kwargs['pk']
-#         chat_messages = Message.objects.filter(chat_id=chat_id).order_by('time')
-#         return chat_messages
-#     def list(self, request, *args, **kwargs):
-#         queryset = self.get_queryset()
-#         serialized = serialize('json', queryset)
-#         return HttpResponse(serialized, content_type='application/json')
-    
+    def get_object(self):
+        user = self.request.user
+        return TutoringForm.objects.filter(Tutor=user)
 
 class SingleUserView(generics.RetrieveAPIView):
     serializer_class = UserSerializer
@@ -60,6 +56,9 @@ class CreateChatView(generics.CreateAPIView):
     serializer_class = ChatSerializerCreate
     permission_classes = [AllowAny]
 
+    
+    
+
 class CreateMessageView(generics.CreateAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializerCreate
@@ -69,6 +68,7 @@ class CreateUserView(generics.CreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
+    
 
 
 class CreateSessionView(APIView):

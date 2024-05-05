@@ -1,4 +1,7 @@
 import { Fragment, useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
 
 interface Course {
   Title: string;
@@ -23,11 +26,12 @@ const FormDisplay = ({ Course }: Props) => {
     maxWidth: "540px",
     backgroundColor: isHovered ? "#f0f0f0" : "transparent", // Change background color on hover
     transition: "background-color 0.3s ease", // Add smooth transition
-  };
+    position: "static"
+    } as React.CSSProperties;
 
   return (
     <div
-      className="card"
+      className="card csudh_yellow border border-dark"
       style={cardStyle}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}

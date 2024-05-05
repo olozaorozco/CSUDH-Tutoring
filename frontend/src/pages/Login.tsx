@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../api";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
+import NavbarLogin from "../components/NavBarLogin";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -49,24 +50,36 @@ const Login = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        <button type="submit">Login</button>
+      <NavbarLogin registering={"Register"}></NavbarLogin>
+      <form onSubmit={handleSubmit} >
+        <div className="d-flex flex-column align-items-center">
+          <div className="p-2">
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="p-2">
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="">
+            <button type="submit" className="btn btn-secondary" style={{marginRight:5}}>Login</button>
+            <Link to="/">
+              <button className="btn btn-secondary">Back</button>
+            </Link>
+          </div>
+        </div>
+        
+        
       </form>
-      <Link to="/">
-        <button>Back</button>
-      </Link>
+      
     </>
   );
 };

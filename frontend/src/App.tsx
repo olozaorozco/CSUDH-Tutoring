@@ -9,6 +9,8 @@ import NotFound from "./pages/NotFound";
 import Chat from "./pages/Chat";
 import { UserProvider } from "./components/UserContext";
 import ChatList from "./pages/ChatList";
+import CalendarTest from "./pages/CalendarTest";
+import Date from "./pages/Date";
 function Logout(){
   const navigate = useNavigate();
   localStorage.clear()
@@ -34,7 +36,8 @@ function App() {
           <Route path="*" element={<NotFound />} />
           <Route path="/chat/view" element={<Chat />} />
           <Route path="/chat/list" element={<ChatList />} />
-
+          <Route path="/calendar" element={<CalendarTest />} />
+          <Route path="/calendar/:date" element={<Date />} />
         </Routes>
       </Router>
     </UserProvider>

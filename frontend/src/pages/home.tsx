@@ -33,6 +33,10 @@ function Home() {
         <Link to="/chat/list">
           <button>To chat site</button>
         </Link>
+        <h2>Link to Calendar</h2>
+        <Link to="/calendar">
+          <button>To calendar site</button>
+        </Link>
       </div>
     </>
   );

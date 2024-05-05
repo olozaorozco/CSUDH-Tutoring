@@ -48,16 +48,16 @@ function Chat() {
 
   const inputStyle = {
     maxWidth: "fit-content",
-    position: "absolute",
+    position: "fixed",
     bottom: 10,
     marginLeft: 550,
-    maxHeight: 100
+    
   } as React.CSSProperties;
 
   return (
     <div className="body-background" style={{paddingTop:115, paddingBottom: 20}}>
       <Navbar></Navbar>
-      <div style={{margin: 10}}>
+      <div style={{margin: 10, marginBottom: 80}}>
         {data.length > 0 ? (
           data.map((message, index) => (
             <Message
@@ -71,7 +71,7 @@ function Chat() {
         )}
       </div>
 
-      <Link to="/chat/list" style={{position:"absolute", bottom:0, margin:10}}>
+      <Link to="/chat/list" style={{position:"fixed", bottom:0, margin:10}}>
         <button onClick={handleClick} className="btn btn-dark csudh_red">Back</button>
       </Link>
       <div style={inputStyle}>

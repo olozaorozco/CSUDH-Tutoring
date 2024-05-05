@@ -24,7 +24,8 @@ const Message = ({ message, authenticatedUserId }: Props) => {
     backgroundColor: rightSide ? "text-bg-primary" : "text-bg-secondary",
     side: rightSide ? "float-right" : "float-left",
     maxWidth: "18rem",
-  };
+    position: "static",
+  }as React.CSSProperties;
   return (
     <div
       className={`d-flex ${

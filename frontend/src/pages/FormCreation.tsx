@@ -113,7 +113,7 @@ function FormCreation() {
             onClick={() => {
               handleClick;
             }}
-            className="btn btn-sm btn-primary"
+            className="btn btn-sm btn-dark csudh_red"
           >
             Search
           </button>
@@ -151,12 +151,12 @@ function FormCreation() {
               className="me-1"
               style={{ height: 32, borderRadius: 10, textAlign: "center" }}
             />
-            <button type="submit" className="btn btn-sm btn-primary">Create</button>
+            <button type="submit" className="btn btn-sm btn-dark csudh_red">Create</button>
           </div>
 
         </form>
         <Link to="/">
-          <button>Back</button>
+          <button className="btn btn-dark csudh_red">Back</button>
         </Link>
         <ul>
           {formData.courses.map((course, index) => (

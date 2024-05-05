@@ -48,7 +48,7 @@ function Register() {
   };
 
   return (
-    <>
+    <div className="body-background">
       <NavbarLogin registering={"Login"}></NavbarLogin>
       <form onSubmit={handleSubmit} style={{marginLeft: 10, marginRight:10}}>
         <div className="form-group col-md-5">
@@ -115,22 +115,23 @@ function Register() {
             className="form-control"
           />
         </div>
-        
-        <p>
-          Will you be tutoring? &nbsp;
+        <div className="form-check form-switch">
+          <label className="form-check-label" htmlFor="switch">Will you be tutoring? &nbsp;</label>
           <input
             type="checkbox"
             name="willTutor"
             checked={formData.willTutor}
             onChange={handleCheck}
             placeholder="Will you Tutor?"
+            className="form-check-input"
+            id="switch"
           />
-        </p>
+        </div>
       </form>
       <Link to="/">
-        <button>Back</button>
+        <button className="ms-2 btn btn-dark csudh_red">Back</button>
       </Link>
-    </>
+    </div>
   );
 }
 

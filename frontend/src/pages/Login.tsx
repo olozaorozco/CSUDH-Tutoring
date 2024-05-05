@@ -49,16 +49,17 @@ const Login = () => {
   };
 
   return (
-    <>
+    <div className="body-background">
       <NavbarLogin registering={"Register"}></NavbarLogin>
       <form onSubmit={handleSubmit} >
-        <div className="d-flex flex-column align-items-center">
-          <div className="p-2">
+        <div className="d-flex flex-column align-items-center" style={{marginTop: 150}}>
+          <div className="p-2 form-group col">
             <input
               type="text"
               name="username"
               value={formData.username}
               onChange={handleChange}
+              className="form-control border-dark"
             />
           </div>
           <div className="p-2">
@@ -67,6 +68,7 @@ const Login = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
+              className="form-control border-dark"
             />
           </div>
           <div className="">
@@ -80,7 +82,7 @@ const Login = () => {
         
       </form>
       
-    </>
+    </div>
   );
 };
 

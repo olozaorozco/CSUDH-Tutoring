@@ -89,10 +89,10 @@ function FormCreation() {
   };
 
   return (
-    <>
-    <Navbar></Navbar>
-    <h2 className="mt-2 ms-2">What Courses Can You Tutor?</h2>
-    <div className="ms-2">
+    <div className="body-background" style={{paddingTop:115, paddingBottom: 20}}>
+      <Navbar></Navbar>
+      <h2 className="mt-2 ms-2">What Courses Can You Tutor?</h2>
+      <div className="ms-2">
         <div className="mb-3">
           <input
             type="text"
@@ -101,7 +101,7 @@ function FormCreation() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="me-1"
-            style={{height:32, borderRadius:10, textAlign:"center"}}
+            style={{ height: 32, borderRadius: 10, textAlign: "center" }}
           />
           <button
             onClick={() => {
@@ -147,7 +147,7 @@ function FormCreation() {
             />
             <button type="submit" className="btn btn-sm btn-primary">Create</button>
           </div>
-          
+
         </form>
         <Link to="/">
           <button>Back</button>
@@ -157,9 +157,10 @@ function FormCreation() {
             <li key={index}>{course}</li>
           ))}
         </ul>
+      </div>
     </div>
+    
       
-    </>
   );
 }
 

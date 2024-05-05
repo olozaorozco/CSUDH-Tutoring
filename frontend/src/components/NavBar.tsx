@@ -12,8 +12,15 @@ function Navbar() {
     setFirstName(user.first_name);
   });
 
+  const navStyle = {
+    minHeight:108, 
+    position: "fixed",
+    width: "100%",
+    top: 0,
+  } as React.CSSProperties;
+
     return(
-        <nav className='navbar navbar-dark csudh_red' style={{minHeight:108}}>
+        <nav className='navbar navbar-dark csudh_red' style={navStyle}>
              <img src={LOGO} alt="CSUDH LOGO" className = "csudh_logo"></img>
              <h1 style={{color:"black", marginRight:150}}>Hello {firstName}</h1>
              <Link to="/Login">

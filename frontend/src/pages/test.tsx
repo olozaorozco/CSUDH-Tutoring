@@ -46,7 +46,7 @@ function Test() {
     
     <div className="body-background">
       <Navbar></Navbar>
-      <h2 className="mt-2 ms-2">Search For Tutors Below!</h2>
+      <h2 className="mt-2 ms-2" style={{paddingTop:130}}>Search For Tutors Below!</h2>
       <h3 className="mt-2 ms-2">Search By Tutor Name Or Course Name</h3>
       <div className="ms-2">
         <div className="mb-3">

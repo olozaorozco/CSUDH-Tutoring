@@ -11,7 +11,7 @@ function Home() {
     setFirstName(user.first_name);
   });
   return (
-    <div className="body-background">
+    <div className="body-background" style={{paddingTop:115}}>
       <Navbar></Navbar>
       <div>
         <h1>Link to search</h1>

@@ -26,11 +26,12 @@ const FormDisplay = ({ Course }: Props) => {
     maxWidth: "540px",
     backgroundColor: isHovered ? "#f0f0f0" : "transparent", // Change background color on hover
     transition: "background-color 0.3s ease", // Add smooth transition
-  };
+    position: "static"
+    } as React.CSSProperties;
 
   return (
     <div
-      className="card"
+      className="card csudh_yellow border border-dark"
       style={cardStyle}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}

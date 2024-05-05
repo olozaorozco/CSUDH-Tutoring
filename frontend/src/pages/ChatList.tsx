@@ -26,17 +26,17 @@ function ChatList() {
     fetchData();
   }, []);
   return (
-    <>
+    <div className="body-background" style={{paddingTop:115, paddingBottom: 20}}>
     <Navbar></Navbar>
-      <div>
+      <div className="ms-3 mt-1">
         {data.map((chat) => (
           <ChatListComponent Chat={chat} authenticatedUserId={userId} />
         ))}
       </div>
       <Link to="/">
-        <button>Back</button>
+        <button className="btn btn-dark csudh_red ms-2">Back</button>
       </Link>
-    </>
+    </div>
   );
 }
 

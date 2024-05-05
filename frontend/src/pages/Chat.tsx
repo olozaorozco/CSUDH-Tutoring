@@ -46,10 +46,18 @@ function Chat() {
     fetchChat();
   }, [chatId]);
 
+  const inputStyle = {
+    maxWidth: "fit-content",
+    position: "absolute",
+    bottom: 10,
+    marginLeft: 550,
+    maxHeight: 100
+  } as React.CSSProperties;
+
   return (
-    <>
+    <div className="body-background" style={{paddingTop:115, paddingBottom: 20}}>
       <Navbar></Navbar>
-      <div>
+      <div style={{margin: 10}}>
         {data.length > 0 ? (
           data.map((message, index) => (
             <Message
@@ -62,18 +70,23 @@ function Chat() {
           <p></p>
         )}
       </div>
-      <Link to="/chat/list">
-        <button onClick={handleClick}>Back</button>
+
+      <Link to="/chat/list" style={{position:"absolute", bottom:0, margin:10}}>
+        <button onClick={handleClick} className="btn btn-dark csudh_red">Back</button>
       </Link>
-      <input
-        type="text"
-        id="messageCreate"
-        placeholder=""
-        value={newMessage}
-        onChange={(e) => setMessage(e.target.value)}
-      />
-      <button onClick={handleSubmit}>Send</button>
-    </>
+      <div style={inputStyle}>
+        <input
+          type="text"
+          id="messageCreate"
+          placeholder=""
+          value={newMessage}
+          onChange={(e) => setMessage(e.target.value)}
+          style={{height:32, borderRadius:10, textAlign:"center"}}
+        />
+        <button onClick={handleSubmit} className="btn btn-dark csudh_red ms-2">Send</button>
+      </div>
+      
+    </div>
   );
 }
 

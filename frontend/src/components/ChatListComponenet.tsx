@@ -47,7 +47,8 @@ const ChatListComponent = ({ Chat, authenticatedUserId }: Props) => {
   }
   const cardStyle = {
     maxWidth: "18rem",
-  };
+    position: "static"
+  } as React.CSSProperties;
 
   return (
     <div className="card text-bg-primary mb-3" style={cardStyle}>

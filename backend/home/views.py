@@ -10,6 +10,8 @@ from django.core.serializers import serialize
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.db.models import Q, Max
+from rest_framework.mixins import RetrieveModelMixin, CreateModelMixin
+from rest_framework.exceptions import ValidationError
 
 class ChatView(APIView):
     authentication_classes = [JWTAuthentication]
@@ -60,6 +62,33 @@ class CreateChatView(generics.CreateAPIView):
     serializer_class = ChatSerializerCreate
     permission_classes = [AllowAny]
 
+class CreateOrGetChatView(CreateModelMixin, RetrieveModelMixin, APIView):
+    queryset = Chat.objects.all()
+    serializer_class = ChatSerializerCreate
+    permission_classes = [AllowAny]
+
+    def post(self, request, *args, **kwargs):
+
+        try:
+            response = self.create(request, *args, **kwargs)
+            if response.status_code == 201:
+                return response
+            
+        except ValidationError as e:
+            return self.retrieve(request, *args, **kwargs)
+        
+        
+    def get_serializer_context(self):
+        return {'request': self.request}
+        
+    def get_serializer(self, *args, **kwargs):
+          
+        serializer_class = self.serializer_class
+        kwargs['context'] = self.get_serializer_context()
+        return serializer_class(*args, **kwargs)
+    
+    
+
 class CreateMessageView(generics.CreateAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializerCreate
@@ -69,6 +98,7 @@ class CreateUserView(generics.CreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
+    
 
 
 class CreateSessionView(APIView):

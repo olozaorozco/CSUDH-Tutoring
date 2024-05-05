@@ -106,7 +106,8 @@ class ChatSerializerCreate(ModelSerializer):
         fields = ['id', 'user1', 'user2']
     
     def create(self, validated_data):
-        return Chat.objects.create(**validated_data)
+        chat, created = Chat.objects.get_or_create(**validated_data)
+        return chat
     
 
 

@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework import routers
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from .views import ChatListView, CreateMessageView, ChatView, CreateChatView, CreateSessionView, FormCreationView, UserViewSet, CourseViewSet, TutoringFormViewSet, TutoringSessionViewSet, CreateUserView, SingleUserView
+from .views import CreateOrGetChatView, ChatListView, CreateMessageView, ChatView, CreateChatView, CreateSessionView, FormCreationView, UserViewSet, CourseViewSet, TutoringFormViewSet, TutoringSessionViewSet, CreateUserView, SingleUserView
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)

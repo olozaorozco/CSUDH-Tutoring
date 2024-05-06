@@ -65,8 +65,8 @@ class TutoringSession(models.Model):
 
     TutoringForm = models.ForeignKey(TutoringForm, on_delete=models.CASCADE)
     Student = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    #date_created =models.DateTimeField(auto_now_add=True)
-    #Tutoring_Date = models.DateField(default=date.today)
+    date_created = models.DateTimeField(auto_now_add=True,)
+    Tutoring_Date = models.DateField(default=date.today)
     Location = models.IntegerField(choices=locations)
 
     def clean(self):

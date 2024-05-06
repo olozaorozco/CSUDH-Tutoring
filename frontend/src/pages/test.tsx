@@ -91,6 +91,9 @@ function Test() {
                 >
                   Chat
                 </button>
+                <Link to="/test/signup">
+                <button className="btn btn-dark csudh_red ms-2">Schedule Session</button>
+                </Link>
               </div>
             ))}
 

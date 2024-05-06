@@ -28,21 +28,25 @@ function ScheduleSession() {
 
     return (
         
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>Tutoring Form ID:</label>
-                <input type="text" value={tutoringFormId} onChange={e => setTutoringFormId(e.target.value)} />
-            </div>
-            <div>
-                <label>Tutoring Date:</label>
-                <input type="date" value={tutoringDate} onChange={e => setTutoringDate(e.target.value)} />
-            </div>
-            <div>
-                <label>Location:</label>
-                <input type="number" value={location} onChange={e => setLocation(e.target.value)} />
-            </div>
-            <button type="submit" className="btn btn-dark csudh_red">Schedule Session</button>
-        </form>
+        <div className="body-background" style={{paddingTop:115, paddingBottom: 20}}>
+            <Navbar></Navbar>
+            <form onSubmit={handleSubmit}>
+                <div className="form-group col-md-3 mt- ms-2">
+                    <label htmlFor="ID">Tutoring Form ID:</label>
+                    <input type="text"id="ID" value={tutoringFormId} onChange={e => setTutoringFormId(e.target.value)}  className="form-control"/>
+                </div>
+                <div className="form-group col-md-3 mt- ms-2">
+                    <label htmlFor="date">Tutoring Date:</label>
+                    <input type="date" id="date" value={tutoringDate} onChange={e => setTutoringDate(e.target.value)} className="form-control"/>
+                </div>
+                <div className="form-group col-md-3 mt- ms-2">
+                    <label>Location:</label>
+                    <input type="number" value={location} onChange={e => setLocation(e.target.value)} className="form-control"/>
+                </div>
+                <button type="submit" className="btn btn-dark csudh_red ms-2 mt-2">Schedule Session</button>
+            </form>
+        </div>
+        
     );
 }
 

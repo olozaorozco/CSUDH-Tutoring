@@ -127,10 +127,12 @@ function Register() {
             id="switch"
           />
         </div>
+        <Link to="/">
+          <button className="ms-2 btn btn-dark csudh_red">Back</button>
+        </Link>
+        <button type="submit" className="ms-2 btn btn-dark csudh_red">Register</button>
       </form>
-      <Link to="/">
-        <button className="ms-2 btn btn-dark csudh_red">Back</button>
-      </Link>
+      
     </div>
   );
 }

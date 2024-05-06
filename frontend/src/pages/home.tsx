@@ -13,7 +13,10 @@ function Home() {
   return (
     <div className="body-background" style={{paddingTop:115}}>
       <Navbar></Navbar>
-      <div>
+      <div className="m-2">
+        <h1 className="d-flex justify-content-center">Welcome! Search for a student tutor or offer your tutoring services below.</h1>
+
+
         <h1>Link to search</h1>
         <Link to="/test">
           <button>To test site</button>

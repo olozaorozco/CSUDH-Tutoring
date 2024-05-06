@@ -54,28 +54,29 @@ const Login = () => {
       <form onSubmit={handleSubmit} >
         <div className="d-flex flex-column align-items-center" style={{marginTop: 150}}>
           <div className="p-2 form-group col">
+            <label htmlFor="user">Username</label>
             <input
               type="text"
               name="username"
               value={formData.username}
               onChange={handleChange}
               className="form-control border-dark"
+              id="user"
             />
           </div>
           <div className="p-2">
+          <label htmlFor="password">Password</label>
             <input
               type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
               className="form-control border-dark"
+              id="password"
             />
           </div>
           <div className="">
-            <button type="submit" className="btn btn-secondary" style={{marginRight:5}}>Login</button>
-            <Link to="/">
-              <button className="btn btn-secondary">Back</button>
-            </Link>
+            <button type="submit" className="btn btn-secondary csudh_red" style={{marginRight:5}}>Login</button>
           </div>
         </div>
         

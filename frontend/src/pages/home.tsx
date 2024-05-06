@@ -3,20 +3,13 @@ import { useState, useEffect } from "react";
 import Navbar from "../components/NavBar";
 
 function Home() {
-  const [firstName, setFirstName] = useState("");
-
-  var isTutor = false;
-  useEffect(() => {
-    const userData = localStorage.getItem("user");
-    const user = JSON.parse(userData);
-    setFirstName(user.first_name);
-
-    isTutor = user.isTutor == 1;
+  var userIsTutor = false;
+ 
+  const userData = localStorage.getItem("user");
+  const user = JSON.parse(userData);
+  userIsTutor = user.willTutor;
     
-
-  });
-
-  
+  console.log(userIsTutor);
   
   
   return (
@@ -31,7 +24,7 @@ function Home() {
           <button className="btn btn-dark csudh_red">Tutor Search</button>
         </Link>
 
-        {isTutor ? <div>
+        {userIsTutor ? <div>
           <h3>Click to Create a Tutoring Post</h3>
           <Link to="/Form">
             <button className="btn btn-dark csudh_red">Create Post</button>

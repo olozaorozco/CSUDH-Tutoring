@@ -68,18 +68,24 @@ class CreateUserView(generics.CreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
+
+class CreateSessionView(generics.CreateAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = TutoringSessionSerializer
+    permission_classes = [AllowAny]
     
 
 
-class CreateSessionView(APIView):
-    def post(self, request):
-        TutorForm = request.data.get("TutorForm")
-        Student = request.data.get("Student")
-        location = request.data.get("location")
+# class CreateSessionView(APIView):
+#     def post(self, request):
+#         TutorFormID = request.data.get("TutorForm")
+#         StudentID = request.data.get("Student")
+#         location = request.data.get("location")
 
-        student = CustomUser.objects.get(id=Student)
 
-        TutoringSession.objects.create(TutoringForm = TutoringForm, Student=student)
+#         student = CustomUser.objects.get(id=Student)
+
+#         TutoringSession.objects.create(TutoringForm = TutoringForm, Student=student)
 
 class FormCreationView(APIView):
     def post(self, request):

@@ -51,6 +51,10 @@ class TutoringForm(models.Model):
     Fri = models.BooleanField(default=False)
     Sat = models.BooleanField(default=False)
     Sun = models.BooleanField(default=False)
+    OnCampus = models.BooleanField(default=False)
+    Messaging = models.BooleanField(default=False)
+    Zoom = models.BooleanField(default=False)
+
 
 
     def __str__(self):

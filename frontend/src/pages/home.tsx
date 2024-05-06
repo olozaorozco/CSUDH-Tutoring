@@ -42,9 +42,9 @@ function Home() {
         </Link>
         <p><br /></p>
 
-        <h3>Link to Calendar</h3>
+        <h3>Click to See The Calendar</h3>
         <Link to="/calendar">
-          <button className="btn btn-dark csudh_red">To calendar site</button>
+          <button className="btn btn-dark csudh_red">See Calendar</button>
         </Link>
       </div>
     </div>

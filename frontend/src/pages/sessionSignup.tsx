@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import api from "../api";
 import Navbar from "../components/NavBar";
+import { Link } from "react-router-dom";
 
 function ScheduleSession() {
     const [tutoringFormId, setTutoringFormId] = useState('');
@@ -43,6 +44,9 @@ function ScheduleSession() {
                     <label>Location:</label>
                     <input type="number" value={location} onChange={e => setLocation(e.target.value)} className="form-control"/>
                 </div>
+                <Link to="/">
+                    <button className="ms-2 mt-2 btn btn-dark csudh_red">Back</button>
+                </Link>
                 <button type="submit" className="btn btn-dark csudh_red ms-2 mt-2">Schedule Session</button>
             </form>
         </div>

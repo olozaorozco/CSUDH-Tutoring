@@ -36,13 +36,13 @@ function Date() {
           {data.map((user) => (user.willTutor && user.TutorForm != null && user.TutorForm[day]) ? 
           (
             <>
-              <div>
+              <div className="mb-3">
                 <TutorDisplay Tutor={user}/>
               </div>
             </>
           ) : null)}
         </div>
-        <Link to="/calendar">
+        <Link to="/calendar" style={{position:"fixed", bottom:0, margin:10}}>
           <button className="btn btn-dark csudh_red m-2">Back</button>
         </Link>
         </div>

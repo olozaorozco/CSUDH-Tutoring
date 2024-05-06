@@ -14,6 +14,13 @@ interface Form {
     Description: string;
   };
   Description: string;
+  Mon: boolean;
+  Tue: boolean;
+  Wed: boolean;
+  Thu: boolean;
+  Fri: boolean;
+  Sat: boolean;
+  Sun: boolean;
 }
 
 interface Props {
@@ -61,6 +68,18 @@ const FormDisplay = ({ Form }: Props) => {
             <p className="card-text">
               <small className="text-body-secondary">{Form.Description}</small>
             </p>
+            <div>
+            Days Available:
+            <ul>
+              {Form.Mon ? <li>Monday</li> : null}
+              {Form.Tue ? <li>Tuesday</li> : null}
+              {Form.Wed ? <li>Wednesday</li> : null}
+              {Form.Thu ? <li>Thursday</li> : null}
+              {Form.Fri ? <li>Friday</li> : null}
+              {Form.Sat ? <li>Saturday</li> : null}
+              {Form.Sun ? <li>Sunday</li> : null}
+              </ul>
+            </div>
           </div>
         </div>
       </div>

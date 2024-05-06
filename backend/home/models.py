@@ -39,10 +39,19 @@ class Course(models.Model):
     def __str__(self):
         return self.CourseNumber
     
+
 class TutoringForm(models.Model):
     Tutor = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name="TutorForm")
     courses = models.ManyToManyField(Course)
     Description = models.CharField(max_length = 200, default= '')
+    Mon = models.BooleanField(default=False)
+    Tue = models.BooleanField(default=False)
+    Wed = models.BooleanField(default=False)
+    Thu = models.BooleanField(default=False)
+    Fri = models.BooleanField(default=False)
+    Sat = models.BooleanField(default=False)
+    Sun = models.BooleanField(default=False)
+
 
     def __str__(self):
         return (self.Tutor.first_name + "Tutoring Form")

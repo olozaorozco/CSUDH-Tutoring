@@ -17,12 +17,13 @@ function Home() {
       <Navbar></Navbar>
       <div className="m-2">
         <h1 className="d-flex justify-content-center">Welcome! Search for a student tutor or offer your tutoring services below.</h1>
-        
+        <p><br /></p>
 
         <h3>Click to See Available Tutors</h3>
         <Link to="/test">
           <button className="btn btn-dark csudh_red">Tutor Search</button>
         </Link>
+        <p><br /></p>
 
         {userIsTutor ? <div>
           <h3>Click to Create a Tutoring Post</h3>
@@ -32,11 +33,13 @@ function Home() {
         </div>
         : <div></div>  
       }
-        
+        <p><br /></p>
+
         <h3>Click to Check Your Messages</h3>
         <Link to="/chat/list">
           <button className="btn btn-dark csudh_red">See Messages</button>
         </Link>
+        <p><br /></p>
         <h3>Link to Calendar</h3>
         <Link to="/calendar">
           <button className="btn btn-dark csudh_red">To calendar site</button>

@@ -44,7 +44,7 @@ function Date() {
           })}
         </div>
         <Link to="/calendar">
-          <button>Back</button>
+          <button className="btn btn-dark csudh_red m-2">Back</button>
         </Link>
         </div>
         

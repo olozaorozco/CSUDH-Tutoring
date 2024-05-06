@@ -86,7 +86,7 @@ class FormCreationView(APIView):
         Tutor_id = request.data.get('Tutor')
         Description = request.data.get('Description')
         courses = request.data.get('courses')
-
+        days_data = request.data.get('days', {})  # Get days data
             
             # Check if the required fields are present
         if not (Tutor_id and Description and courses):
@@ -101,7 +101,7 @@ class FormCreationView(APIView):
             
             # Create the user
         try:
-            form = TutoringForm.objects.create(Tutor=tutor, Description=Description)  
+            form = TutoringForm.objects.create(Tutor=tutor, Description=Description, **days_data)  
             for course_id in courses:
                 try:
                     course = Course.objects.get(id=course_id)

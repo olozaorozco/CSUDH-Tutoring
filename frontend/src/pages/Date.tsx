@@ -29,14 +29,15 @@ function Date() {
     <>
       <div>
         <h1>Available Tutors</h1>
-        {data.map((user) => {
-          if (user.willTutor == true /** && user.TutorForm.availability.includes(day) /**/) {
-            return (
-              <>
-                <h2>{user.first_name} {user.last_name}</h2>
-                <h3>{user.email}</h3>
-              </>
-          );}})}
+        {data.map((user) => (user.willTutor && user.TutorForm[day]) ? 
+          (
+            <>
+              <div>
+              <h2>{user.first_name} {user.last_name}</h2>
+              <h3>{user.email}</h3>
+              </div>
+            </>
+          ) : null)}
       </div>
       <Link to="/calendar">
         <button>Back</button>

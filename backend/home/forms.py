@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .models import CustomUser
+from .models import CustomUser, TutoringForm, Days
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -12,3 +12,15 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
         fields = ['email', 'username', 'first_name', 'last_name', 'password1', 'password2', 'willTutor']
+
+
+class TutoringFormAdminForm(forms.ModelForm):
+    class Meta:
+        model = TutoringForm
+        fields = '__all__'
+
+    days = forms.ModelMultipleChoiceField(
+        queryset=Days.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )

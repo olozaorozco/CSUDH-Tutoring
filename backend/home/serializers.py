@@ -4,14 +4,6 @@ from rest_framework import serializers
 import logging
 logger = logging.getLogger(__name__)
 
-class DaySerializer(serializers.Serializer):
-    Mon = serializers.BooleanField(default=False)
-    Tue = serializers.BooleanField(default=False)
-    Wed = serializers.BooleanField(default=False)
-    Thu = serializers.BooleanField(default=False)
-    Fri = serializers.BooleanField(default=False)
-    Sat = serializers.BooleanField(default=False)
-    Sun = serializers.BooleanField(default=False)
 
 class CourseSerializer(ModelSerializer):
     class Meta:

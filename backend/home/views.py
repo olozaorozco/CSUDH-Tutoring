@@ -87,7 +87,14 @@ class FormCreationView(APIView):
         Description = request.data.get('Description')
         courses = request.data.get('courses')
         days_data = request.data.get('days', {})  # Get days data
-            
+        Mon = request.data.get('Mon')
+        Tue = request.data.get('Tue')
+        Wed = request.data.get('Wed')
+        Thu = request.data.get('Thu')
+        Fri = request.data.get('Fri')
+        Sat = request.data.get('Sat')
+        Sun = request.data.get('Sun')
+
             # Check if the required fields are present
         if not (Tutor_id and Description and courses):
             return JsonResponse({'error': 'Missing required fields'}, status=400)
@@ -101,7 +108,15 @@ class FormCreationView(APIView):
             
             # Create the user
         try:
-            form = TutoringForm.objects.create(Tutor=tutor, Description=Description, **days_data)  
+            form = TutoringForm.objects.create(Tutor=tutor,
+                                                Description=Description,
+                                                Mon=Mon,
+                                                Tue=Tue,
+                                                Wed=Wed,
+                                                Thu=Thu,
+                                                Fri=Fri,
+                                                Sat=Sat,
+                                                Sun=Sun)  
             for course_id in courses:
                 try:
                     course = Course.objects.get(id=course_id)

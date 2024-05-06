@@ -35,6 +35,13 @@ function FormCreation() {
     Tutor: userID,
     courses: [],
     Description: "",
+    Mon: false,
+    Tue: false,
+    Wed: false,
+    Thu: false,
+    Fri: false,
+    Sat: false,
+    Sun: false,
   });
 
   useEffect(() => {
@@ -87,7 +94,13 @@ function FormCreation() {
       setIsSubmitting(false);
     }
   };
-
+  const handleDay = (e, day) => {
+    setFormData({
+      ...formData,
+      [day]: e.target.checked,
+    });
+  };
+  
   return (
     <div className="body-background" style={{paddingTop:115, paddingBottom: 20}}>
       <Navbar></Navbar>
@@ -136,7 +149,7 @@ function FormCreation() {
                     //placeholder="Username"
                     />
                   </div>
-                  
+
                 </div>
               ))}
           <div className="mb-3">
@@ -151,7 +164,24 @@ function FormCreation() {
             />
             <button type="submit" className="btn btn-sm btn-dark csudh_red">Create</button>
           </div>
-
+          <div>
+          <ul>
+          {Object.keys(formData).map((day) => {
+            if (day === 'Tutor' || day === 'courses' || day === 'Description') return null;
+            return (
+              <li key={day}>
+                <input
+                  type="checkbox"
+                  name={day}
+                  checked={formData[day]}
+                  onChange={(e) => handleDay(e, day)}
+                />
+                {day}
+              </li>
+            );
+          })}
+          </ul>
+        </div>
         </form>
         <Link to="/">
           <button className="btn btn-dark csudh_red">Back</button>

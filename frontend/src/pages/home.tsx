@@ -30,16 +30,18 @@ function Home() {
           <Link to="/Form">
             <button className="btn btn-dark csudh_red">Create Post</button>
           </Link>
+          <p><br /></p>
         </div>
+        
         : <div></div>  
       }
-        <p><br /></p>
 
         <h3>Click to Check Your Messages</h3>
         <Link to="/chat/list">
           <button className="btn btn-dark csudh_red">See Messages</button>
         </Link>
         <p><br /></p>
+
         <h3>Link to Calendar</h3>
         <Link to="/calendar">
           <button className="btn btn-dark csudh_red">To calendar site</button>

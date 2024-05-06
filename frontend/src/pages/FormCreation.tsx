@@ -38,12 +38,6 @@ function FormCreation() {
   });
 
   useEffect(() => {
-    const response = api.get('/form/view/')
-    
-  })
-
-
-  useEffect(() => {
     if (userID != null) {
       setFormData((prevFormData) => ({
         ...prevFormData,
@@ -98,6 +92,7 @@ function FormCreation() {
     <div className="body-background" style={{paddingTop:115, paddingBottom: 20}}>
       <Navbar></Navbar>
       <h2 className="mt-2 ms-2">What Courses Can You Tutor?</h2>
+      <h3 className="mt-2 ms-2">Select courses by flipping the switches underneath. Then add a description for your post</h3>
       <div className="ms-2">
         <div className="mb-3">
           <input
@@ -131,14 +126,17 @@ function FormCreation() {
               .map((course) => (
                 <div>
                   <CourseDisplay Course={course} />
-                  <input
-                    type="checkbox"
-                    name="addCourse"
-                    checked={formData.courses.includes(course.id)}
-                    onChange={(e) => handleCheck(e, course.id)}
-                    className="mt-2"
-                  //placeholder="Username"
-                  />
+                  <div className="form-check form-switch mt-1 mb-2">
+                    <input
+                      type="checkbox"
+                      name="addCourse"
+                      checked={formData.courses.includes(course.id)}
+                      onChange={(e) => handleCheck(e, course.id)}
+                      className="form-check-input"
+                    //placeholder="Username"
+                    />
+                  </div>
+                  
                 </div>
               ))}
           <div className="mb-3">

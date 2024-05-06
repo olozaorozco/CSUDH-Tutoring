@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import api from "../api";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 import axios from "axios";
+import NavbarLogin from "../components/NavBarLogin";
 
 function Register() {
   const navigate = useNavigate();
@@ -47,59 +48,92 @@ function Register() {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
-          placeholder="Username"
-        />
-        <input
-          type="text"
-          name="first_name"
-          value={formData.first_name}
-          onChange={handleChange}
-          placeholder="First Name"
-        />
-        <input
-          type="text"
-          name="last_name"
-          value={formData.last_name}
-          onChange={handleChange}
-          placeholder="Last Name"
-        />
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="Email"
-        />
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          placeholder="Password"
-        />
-        <p>
-          Will you be tutoring? &nbsp;
+    <div className="body-background">
+      <NavbarLogin registering={"Login"}></NavbarLogin>
+      <form onSubmit={handleSubmit} style={{marginLeft: 10, marginRight:10}}>
+        <div className="form-group col-md-5">
+          <label htmlFor="User Name">Username</label>
+          <input
+            type="text"
+            name="username"
+            id="User Name"
+            value={formData.username}
+            onChange={handleChange}
+            placeholder="Username"
+            className="form-control"
+          />
+        </div>
+        
+        <div className="form-group col-md-5">
+          <label htmlFor="First Name">First Name</label>
+          <input
+            type="text"
+            name="first_name"
+            id="First Name"
+            value={formData.first_name}
+            onChange={handleChange}
+            placeholder="First Name"
+            className="form-control"
+          />
+        </div>
+
+        <div className="form-group col-md-5">
+          <label htmlFor="Last Name">Last Name</label>
+          <input
+            type="text"
+            name="last_name"
+            id="Last Name"
+            value={formData.last_name}
+            onChange={handleChange}
+            placeholder="Last Name"
+            className="form-control"
+          />
+        </div>
+
+        
+        <div className="form-group col-md-5">
+          <label htmlFor="Email">Email Address</label>
+          <input
+            type="email"
+            name="email"
+            id="Email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Email"
+            className="form-control"
+          />
+        </div>
+        <div className="form-group col-md-5">
+          <label htmlFor="Password">Password</label>
+          <input
+            type="password"
+            name="password"
+            id="Password"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="Password"
+            className="form-control"
+          />
+        </div>
+        <div className="form-check form-switch">
+          <label className="form-check-label" htmlFor="switch">Will you be tutoring? &nbsp;</label>
           <input
             type="checkbox"
             name="willTutor"
             checked={formData.willTutor}
             onChange={handleCheck}
             placeholder="Will you Tutor?"
+            className="form-check-input"
+            id="switch"
           />
-        </p>
-        <button type="submit">Register</button>
+        </div>
+        <Link to="/">
+          <button className="ms-2 btn btn-dark csudh_red">Back</button>
+        </Link>
+        <button type="submit" className="ms-2 btn btn-dark csudh_red">Register</button>
       </form>
-      <Link to="/">
-        <button>Back</button>
-      </Link>
-    </>
+      
+    </div>
   );
 }
 

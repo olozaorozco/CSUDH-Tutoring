@@ -33,18 +33,18 @@ const FormDisplay = ({ Form }: Props) => {
     maxWidth: "540px",
     backgroundColor: isHovered ? "#f0f0f0" : "transparent", // Change background color on hover
     transition: "background-color 0.3s ease", // Add smooth transition
-  };
+    position: "static"
+  } as React.CSSProperties;
 
   return (
     <div
-      className="card mb-3"
+      className="card mb-3 csudh_yellow border border-dark"
       style={cardStyle}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <div className="row g-0">
         <div className="col-md-4">
-          <img src={image} className="img-fluid rounded-start" alt="..." />
         </div>
         <div className="col-md-8">
           <div className="card-body">

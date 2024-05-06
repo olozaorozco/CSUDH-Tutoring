@@ -3,6 +3,10 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { Link, useNavigate } from "react-router-dom";
 
+const calendarStyle = {
+  //width: 5000,
+} as React.CSSProperties;
+
 function CalendarComponent() {
   const navigate = useNavigate();
   const onChange = (e) => {
@@ -12,12 +16,9 @@ function CalendarComponent() {
   }
   return (
     <>
-    <div>
-      <Calendar onChange={onChange}/>
-    </div>
-    <Link to="/">
-        <button>Back</button>
-      </Link>
+      <div className="border border-dark" style={calendarStyle}>
+        <Calendar onChange={onChange} />
+      </div>
     </>
   )
 }

@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../api";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
+import NavbarLogin from "../components/NavBarLogin";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -48,26 +49,41 @@ const Login = () => {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-        />
-        <button type="submit">Login</button>
+    <div className="body-background">
+      <NavbarLogin registering={"Register"}></NavbarLogin>
+      <form onSubmit={handleSubmit} >
+        <div className="d-flex flex-column align-items-center" style={{marginTop: 150}}>
+          <div className="p-2 form-group col">
+            <label htmlFor="user">Username</label>
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              className="form-control border-dark"
+              id="user"
+            />
+          </div>
+          <div className="p-2">
+          <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className="form-control border-dark"
+              id="password"
+            />
+          </div>
+          <div className="">
+            <button type="submit" className="btn btn-secondary csudh_red" style={{marginRight:5}}>Login</button>
+          </div>
+        </div>
+        
+        
       </form>
-      <Link to="/">
-        <button>Back</button>
-      </Link>
-    </>
+      
+    </div>
   );
 };
 

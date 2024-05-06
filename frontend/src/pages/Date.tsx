@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import api from "../api";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import Navbar from "../components/NavBar";
 
 function Date() {
   const { day } = useParams();
@@ -27,9 +28,11 @@ function Date() {
     }, []);
   return (
     <>
-      <div>
-        <h1>Available Tutors</h1>
-        {data.map((user) => (user.willTutor && user.TutorForm[day]) ? 
+      <div className="body-background" style={{paddingTop:115, paddingBottom: 20}}>
+        <Navbar></Navbar>
+        <div className="m-2">
+          <h1>Available Tutors</h1>
+          {data.map((user) => (user.willTutor && user.TutorForm != null && user.TutorForm[day]) ? 
           (
             <>
               <div>
@@ -38,10 +41,12 @@ function Date() {
               </div>
             </>
           ) : null)}
-      </div>
-      <Link to="/calendar">
-        <button>Back</button>
-      </Link>
+        </div>
+        <Link to="/calendar">
+          <button className="btn btn-dark csudh_red m-2">Back</button>
+        </Link>
+        </div>
+        
     </>
   );
 }

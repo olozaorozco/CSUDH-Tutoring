@@ -4,6 +4,7 @@ import api from "../api";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/NavBar";
+import TutorDisplay from "../components/TutorDisplay";
 
 function Date() {
   const { day } = useParams();
@@ -36,8 +37,7 @@ function Date() {
           (
             <>
               <div>
-              <h2>{user.first_name} {user.last_name}</h2>
-              <h3>{user.email}</h3>
+                <TutorDisplay Tutor={user}/>
               </div>
             </>
           ) : null)}

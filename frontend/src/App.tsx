@@ -11,6 +11,7 @@ import { UserProvider } from "./components/UserContext";
 import ChatList from "./pages/ChatList";
 import CalendarTest from "./pages/CalendarTest";
 import Date from "./pages/Date";
+import TestSignup from "./pages/sessionSignup";
 function Logout(){
   const navigate = useNavigate();
   localStorage.clear()
@@ -38,6 +39,7 @@ function App() {
           <Route path="/chat/list" element={<ChatList />} />
           <Route path="/calendar" element={<CalendarTest />} />
           <Route path="/calendar/:day/:date" element={<ProtectedRoute><Date /></ProtectedRoute>} />
+          <Route path="/test/signup" element={<ProtectedRoute><TestSignup /></ProtectedRoute>} />
         </Routes>
       </Router>
     </UserProvider>

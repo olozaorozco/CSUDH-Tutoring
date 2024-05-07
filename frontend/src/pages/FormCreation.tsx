@@ -165,11 +165,12 @@ function FormCreation() {
             <button type="submit" className="btn btn-sm btn-dark csudh_red">Create</button>
           </div>
           <div>
+            <h4>Select Avaiable Days:</h4>
           <ul>
           {Object.keys(formData).map((day) => {
             if (day === 'Tutor' || day === 'courses' || day === 'Description') return null;
             return (
-              <li key={day}>
+              <h6 key={day}>
                 <input
                   type="checkbox"
                   name={day}
@@ -177,7 +178,7 @@ function FormCreation() {
                   onChange={(e) => handleDay(e, day)}
                 />
                 {day}
-              </li>
+              </h6>
             );
           })}
           </ul>

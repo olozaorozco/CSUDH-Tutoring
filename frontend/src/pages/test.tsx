@@ -42,11 +42,16 @@ function Test() {
     navigate("/chat/view");
   };
 
+  const handleSession = async (form, e) => {
+    localStorage.setItem("form", JSON.stringify(form));
+    navigate("/test/signup");
+  };
   return (
-    
     <div className="body-background">
       <Navbar></Navbar>
-      <h2 className="mt-2 ms-2" style={{paddingTop:130}}>Search For Tutors Below!</h2>
+      <h2 className="mt-2 ms-2" style={{ paddingTop: 130 }}>
+        Search For Tutors Below!
+      </h2>
       <h3 className="mt-2 ms-2">Search By Tutor Name Or Course Name</h3>
       <div className="ms-2">
         <div className="mb-3">
@@ -57,7 +62,7 @@ function Test() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="me-1"
-            style={{height:32, borderRadius:10, textAlign:"center"}}
+            style={{ height: 32, borderRadius: 10, textAlign: "center" }}
           />
         </div>
         {data.length > 0 &&
@@ -69,7 +74,8 @@ function Test() {
                   (course) =>
                     course.CourseNumber.toLowerCase().includes(
                       search.toLowerCase()
-                    ) || course.Title.toLowerCase().includes(search.toLowerCase())
+                    ) ||
+                    course.Title.toLowerCase().includes(search.toLowerCase())
                 ) ||
                   form.Tutor.first_name
                     .toLowerCase()
@@ -91,9 +97,14 @@ function Test() {
                 >
                   Chat
                 </button>
-                <Link to="/test/signup">
-                <button className="btn btn-dark csudh_red ms-2">Schedule Session</button>
-                </Link>
+                <button
+                  className="btn btn-dark csudh_red ms-2"
+                  onClick={(e) => {
+                    handleSession(form, e);
+                  }}
+                >
+                  Schedule Session
+                </button>
               </div>
             ))}
 
@@ -101,8 +112,7 @@ function Test() {
           <button className="mb-3 btn btn-dark csudh_red">Back</button>
         </Link>
       </div>
-      </div>
-      
+    </div>
   );
 }
 

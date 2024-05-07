@@ -4,14 +4,6 @@ from rest_framework import serializers
 import logging
 logger = logging.getLogger(__name__)
 
-class DaySerializer(serializers.Serializer):
-    Mon = serializers.BooleanField(default=False)
-    Tue = serializers.BooleanField(default=False)
-    Wed = serializers.BooleanField(default=False)
-    Thu = serializers.BooleanField(default=False)
-    Fri = serializers.BooleanField(default=False)
-    Sat = serializers.BooleanField(default=False)
-    Sun = serializers.BooleanField(default=False)
 
 class CourseSerializer(ModelSerializer):
     class Meta:
@@ -34,7 +26,7 @@ class TutoringFormSerializer(ModelSerializer):
 
     class Meta:
         model = TutoringForm
-        fields = ['id', 'Tutor', 'courses', 'Description', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        fields = ['id', 'Tutor', 'courses', 'Description', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'OnCampus', 'Zoom', 'Messaging']
 
     def get_Tutor(self, obj):
         user = obj.Tutor
@@ -56,8 +48,8 @@ class UserSerializer(ModelSerializer):
 
 
 class TutoringSessionSerializer(ModelSerializer):
-    Student = UserSerializer()
-    TutoringForm = TutoringFormSerializer()
+    Student = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all())
+    TutoringForm = serializers.PrimaryKeyRelatedField(queryset=TutoringForm.objects.all())
     class Meta:
         model = TutoringSession
         fields = ['id', 'Location', 'Student', 'TutoringForm', 'date_created', 'Tutoring_Date']
